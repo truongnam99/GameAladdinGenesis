@@ -59,6 +59,9 @@
 #include "Apple.h"
 #include "AppleOfAladdin.h"
 #include "RedJewel.h"
+#include "Genie.h"
+#include "Heart.h"
+#include "RestartPoint.h"
 class Aladdin: public GameObject
 {
 private:

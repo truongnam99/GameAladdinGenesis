@@ -220,16 +220,16 @@ void SceneGame::Render()
 	}
 	aladdin->Render();
 
-	//int oCount=0;
-	//for (int i = 0; i < grid->cellShowing.size(); i++)
-	//{
-	//	int id = grid->cellShowing[i];
-	//	int oC = grid->GetCell(id)->object.size();
-	//	for (int j = 0; j < oC; j++)
-	//	{
-	//		grid->GetCell(id)->object[j]->RenderBoundingBox(); // Vẽ renderBouding để debug
-	//	}
-	//}
+	int oCount=0;
+	for (int i = 0; i < grid->cellShowing.size(); i++)
+	{
+		int id = grid->cellShowing[i];
+		int oC = grid->GetCell(id)->object.size();
+		for (int j = 0; j < oC; j++)
+		{
+			grid->GetCell(id)->object[j]->RenderBoundingBox(); // Vẽ renderBouding để debug
+		}
+	}
 }
 
 SceneGame::SceneGame()

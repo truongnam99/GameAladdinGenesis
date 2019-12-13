@@ -16,7 +16,7 @@ void RedJewel::LoadResources()
 	sprites->Add(41835, 226, 3433, 249, 3451, texture);
 	sprites->Add(41836, 258, 3435, 275, 3451, texture);
 	sprites->Add(41837, 285, 3435, 302, 3451, texture);
-	Animation * ani = new Animation(300);
+	Animation * ani = new Animation(120);
 	ani->Add(41829);
 	ani->Add(41830);
 	ani->Add(41831);

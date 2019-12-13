@@ -9,6 +9,9 @@
 #include "Arrow.h"
 #include "MovingBrick.h"
 #include "RedJewel.h"
+#include "Genie.h"
+#include "Heart.h"
+#include "RestartPoint.h"
 using namespace std;
 
 class Grid

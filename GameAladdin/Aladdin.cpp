@@ -763,14 +763,14 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		animations[ALADDIN_RUNNING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 		animations[ALADDIN_JUMPING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 	}
-	if (isInjured == true && stime > 2000)
+	if (isInjured == true && stime > 1000)
 	{
 		isInjured = false;
 	}
 	CollisionWithItem(coObjects);
 	CollisionWithEnemy(coObjects);
 }
-
+	
 void Aladdin::Render(int flip)
 {
 	if (apples.size() != 0)
@@ -1313,7 +1313,8 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 	list_Item.clear();
 	for (UINT i = 0; i < coObject->size(); i++)
 	{
-		if (coObject->at(i)->GetType() == oType::APPLE || coObject->at(i)->GetType() == oType::REDJEWEL)
+		if (coObject->at(i)->GetType() == oType::APPLE || coObject->at(i)->GetType() == oType::REDJEWEL 
+			|| coObject->at(i)->GetType() == oType::GENIE || coObject->at(i)->GetType() == oType::RESTARTPOINT)
 		{
 			list_Item.push_back(coObject->at(i));
 		}
@@ -1354,6 +1355,21 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 					redJewelCount++;
 					list_Item[i]->SetCurrentState(REDJEWEL_STATE_2);
 				}
+				if (list_Item[i]->GetType() == oType::GENIE)
+				{
+					// CONG DIEM
+					list_Item[i]->SetCurrentState(GENIE_STATE_2);
+				}
+				if (list_Item[i]->GetType() == oType::HEART)
+				{
+					// CONG DIEM, CONG MAU
+					list_Item[i]->SetCurrentState(HEART_STATE_2);
+				}
+				if (list_Item[i]->GetType() == oType::HEART)
+				{
+					// set diem hoi sinh
+					list_Item[i]->SetCurrentState(RESTARTPOINT_STATE_2);
+				}
 			}
 		}
 	}
@@ -1369,7 +1385,22 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 			if (coEvents[i]->obj->GetType() == oType::REDJEWEL)
 			{
 				redJewelCount++;
-				list_Item[i]->SetCurrentState(REDJEWEL_STATE_2);
+				coEvents[i]->obj->SetCurrentState(REDJEWEL_STATE_2);
+			}
+			if (coEvents[i]->obj->GetType() == oType::GENIE)
+			{
+				// CONG DIEM
+				coEvents[i]->obj->SetCurrentState(GENIE_STATE_2);
+			}
+			if (coEvents[i]->obj->GetType() == oType::HEART)
+			{
+				// CONG DIEM
+				coEvents[i]->obj->SetCurrentState(HEART_STATE_2);
+			}
+			if (coEvents[i]->obj->GetType() == oType::RESTARTPOINT)
+			{
+				// set diem hoi sinh
+				coEvents[i]->obj->SetCurrentState(RESTARTPOINT_STATE_2);
 			}
 		}
 	}

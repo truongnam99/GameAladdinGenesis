@@ -116,6 +116,15 @@ void Grid::LoadGrid(int idMap)
 		case REDJEWEL:
 			gobj = new RedJewel(id, x, y, width, height, REDJEWEL);
 			break;
+		case GENIE:
+			gobj = new Genie(id, x, y, width, height, GENIE);
+			break;
+		case HEART:
+			gobj = new Heart(id, x, y, width, height, HEART);
+			break;
+		case RESTARTPOINT:
+			gobj = new RestartPoint(id, x, y, width, height, RESTARTPOINT);
+			break;
 		}
 		AddObject(gobj);
 	}
