@@ -45,6 +45,7 @@
 #define ID_TEX_ENEMY 1022
 #define ID_TEX_RESOURCE_MAP1 1023
 #define ID_TEX_ITEM 1024
+#define ID_TEX_STATEDISAPPEAR 1025
 
 //object type
 enum oType

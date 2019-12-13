@@ -112,7 +112,7 @@
       <Filter>GameObjects\Item</Filter>
     </ClCompile>
     <ClCompile Include="RestartPoint.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,7 +192,7 @@
       <Filter>GameObjects\Item</Filter>
     </ClInclude>
     <ClInclude Include="RestartPoint.h">
-      <Filter>Header Files</Filter>
+      <Filter>GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

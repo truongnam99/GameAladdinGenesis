@@ -7,6 +7,7 @@ void RedJewel::LoadResources()
 	Sprites * sprites = Sprites::GetInstance();
 	Animations * anim = Animations::GetInstance();
 	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(ID_TEX_ALADDIN);
+	LPDIRECT3DTEXTURE9 texture1 = Textures::GetInstance()->Get(ID_TEX_STATEDISAPPEAR);
 
 	sprites->Add(41829, 49, 3435, 66, 3451, texture);
 	sprites->Add(41830, 76, 3435, 93, 3451, texture);
@@ -28,10 +29,24 @@ void RedJewel::LoadResources()
 	anim->Add(41829, ani);
 	this->animations[REDJEWEL_STATE_1] = ani;
 
-	sprites->Add(41838, 476, 1512, 483, 1522, texture);
-	ani = new Animation(300);
-	ani->Add(41838);
-	anim->Add(41838, ani);
+	sprites->Add(42980, 80, 31, 118, 52, texture1);
+	sprites->Add(42981, 128, 39, 145, 52, texture1);
+	sprites->Add(42982, 152, 28, 191, 52, texture1);
+	sprites->Add(42983, 200, 36, 230, 52, texture1);
+	sprites->Add(42984, 240, 41, 284, 52, texture1);
+	sprites->Add(42985, 296, 46, 302, 52, texture1);
+	sprites->Add(42986, 312, 32, 331, 52, texture1);
+	sprites->Add(42987, 344, 25, 370, 52, texture1);
+	ani = new Animation(90);
+	ani->Add(42980);
+	ani->Add(42981);
+	ani->Add(42982);
+	ani->Add(42983);
+	ani->Add(42984);
+	ani->Add(42985);
+	ani->Add(42986);
+	ani->Add(42987);
+	anim->Add(42980, ani);
 	this->animations[REDJEWEL_STATE_2] = ani;
 }
 
@@ -55,7 +70,7 @@ RedJewel::RedJewel(int id, float x, float y, int width, int height, oType type)
 	if (!isLoadedResource)
 		LoadResources();
 	this->animations[REDJEWEL_STATE_1] = Animations::GetInstance()->Get(41829);
-	this->animations[REDJEWEL_STATE_2] = Animations::GetInstance()->Get(41838);
+	this->animations[REDJEWEL_STATE_2] = Animations::GetInstance()->Get(42980);
 	SetCurrentState(REDJEWEL_STATE_1);
 }
 

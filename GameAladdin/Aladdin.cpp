@@ -1365,7 +1365,7 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 					// CONG DIEM, CONG MAU
 					list_Item[i]->SetCurrentState(HEART_STATE_2);
 				}
-				if (list_Item[i]->GetType() == oType::HEART)
+				if (list_Item[i]->GetType() == oType::RESTARTPOINT)
 				{
 					// set diem hoi sinh
 					list_Item[i]->SetCurrentState(RESTARTPOINT_STATE_2);
