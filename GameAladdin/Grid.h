@@ -8,6 +8,7 @@
 #include "Apple.h"
 #include "Arrow.h"
 #include "MovingBrick.h"
+#include "RedJewel.h"
 using namespace std;
 
 class Grid

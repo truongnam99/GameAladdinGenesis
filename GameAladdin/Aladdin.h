@@ -58,6 +58,7 @@
 #include "MovingBrick.h"
 #include "Apple.h"
 #include "AppleOfAladdin.h"
+#include "RedJewel.h"
 class Aladdin: public GameObject
 {
 private:
@@ -75,6 +76,7 @@ private:
 	int ropeHeight;
 
 	int applesCount; // số táo hiện có của aladdin
+	int redJewelCount; // số redjewel hiện tại
 	vector<AppleOfAladdin*> apples; // danh sách apple được ném ra: để xét va chạm
 	AppleOfAladdin * a;
 public:

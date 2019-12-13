@@ -96,6 +96,9 @@
     <ClCompile Include="Arrow.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="RedJewel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="Arrow.h">
       <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="RedJewel.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,7 +22,9 @@ Aladdin::Aladdin()
 	isInjured = false;
 	isSitting = false;
 	isCollisionWithWall = false;
+
 	this->applesCount = 15;
+	redJewelCount = 15;
 }
 
 
@@ -712,7 +714,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			apples[i]->Update(dt, coObjects);
 		}
 	}
-	DebugOut((wchar_t*)L"health = %d\n", health);
+	DebugOut((wchar_t*)L"health = %d\n", redJewelCount);
 	stime += dt;
 	if (!isClimbing)
 		vy += ALADDIN_GRAVITY * dt;
@@ -1311,7 +1313,7 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 	list_Item.clear();
 	for (UINT i = 0; i < coObject->size(); i++)
 	{
-		if (coObject->at(i)->GetType() == oType::APPLE)
+		if (coObject->at(i)->GetType() == oType::APPLE || coObject->at(i)->GetType() == oType::REDJEWEL)
 		{
 			list_Item.push_back(coObject->at(i));
 		}
@@ -1321,6 +1323,39 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 
 	if (coEvents.size() == 0)
 	{
+		RECT r1;
+		float la, ta, ra, ba;
+		GetBoundingBox(la, ta, ra, ba);
+		r1.left = la;
+		r1.top = ta;
+		r1.right = ra;
+		r1.bottom = ba;
+		for (UINT i = 0; i < list_Item.size(); i++)
+		{
+			float lo, to, ro, bo;
+			list_Item[i]->GetBoundingBox(lo, to, ro, bo);
+			RECT r2;
+			r2.left = lo;
+			r2.top = to;
+			r2.right = ro;
+			r2.bottom = bo;
+
+
+			RECT dest;
+			if (IntersectRect(&dest, &r1, &r2) == true)
+			{
+				if (list_Item[i]->GetType() == oType::APPLE)
+				{
+					applesCount++;
+					list_Item[i]->SetCurrentState(APPLE_STATE_2);
+				}
+				if (list_Item[i]->GetType() == oType::REDJEWEL)
+				{
+					redJewelCount++;
+					list_Item[i]->SetCurrentState(REDJEWEL_STATE_2);
+				}
+			}
+		}
 	}
 	else
 	{
@@ -1330,6 +1365,11 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 			{
 				applesCount++;
 				coEvents[i]->obj->SetCurrentState(APPLE_STATE_2);
+			}
+			if (coEvents[i]->obj->GetType() == oType::REDJEWEL)
+			{
+				redJewelCount++;
+				list_Item[i]->SetCurrentState(REDJEWEL_STATE_2);
 			}
 		}
 	}

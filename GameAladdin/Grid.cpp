@@ -113,6 +113,9 @@ void Grid::LoadGrid(int idMap)
 		case ARROW:
 			gobj = new Arrow(id, x, y, width, height, ARROW);
 			break;
+		case REDJEWEL:
+			gobj = new RedJewel(id, x, y, width, height, REDJEWEL);
+			break;
 		}
 		AddObject(gobj);
 	}
