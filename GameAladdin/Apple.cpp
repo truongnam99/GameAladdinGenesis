@@ -85,5 +85,5 @@ void Apple::Render(int flip)
 	if (currentState == APPLE_STATE_2 && animations[currentState]->GetCurrentFrame() == animations[currentState]->GetCountFrame() - 1)
 		return;
 	animations[currentState]->RenderReverse(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }

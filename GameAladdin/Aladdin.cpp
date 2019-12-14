@@ -806,7 +806,7 @@ void Aladdin::Render(int flip)
 	animations[currentState]->Render(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam(), 255, nx);
 	
 	
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void Aladdin::SetCurrentState(int state)
