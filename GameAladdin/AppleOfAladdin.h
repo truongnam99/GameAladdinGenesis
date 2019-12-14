@@ -4,8 +4,8 @@
 
 #define APPLE_STATE_1 1 // Trạng thái: Trạng thái bay
 #define APPLE_STATE_2 2 // Trạng thái: khi va chạm -> phát nổ
-#define APPLE_SPEED_X 0.2f
-#define APPLE_SPEED_Y 0.07f
+#define APPLE_SPEED_X 0.25f//chỉnh tốc độ quả táo 
+#define APPLE_SPEED_Y 0.1f
 #define APPLE_GRAVITY 0.00030f
 class AppleOfAladdin: public GameObject
 {
