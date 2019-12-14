@@ -6,7 +6,8 @@
 #include "Textures.h"
 #include "Grid.h"
 #include "Aladdin.h"
-
+#include "Board.h"
+#include "PointReset.h"
 
 class SceneGame:public Scene
 {
@@ -18,6 +19,7 @@ private:
 	int idMap; // Level trong game, có 2 level tương ứng với 2 Map
 	Textures * textures;
 	int StateCurrent;
+	PointReset * pointReset;
 
 	bool isGameOver;
 	DWORD EndTime;

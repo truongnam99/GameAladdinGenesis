@@ -44,6 +44,8 @@
 #define ID_TEX_ALADDIN 1021
 #define ID_TEX_ENEMY 1022
 #define ID_TEX_RESOURCE_MAP1 1023
+#define ID_TEX_ITEM 1024
+#define ID_TEX_STATEDISAPPEAR 1025
 
 //object type
 enum oType
@@ -60,7 +62,8 @@ enum oType
 	REDJEWEL = 9,
 	GENIE = 10,
 	HEART = 11,
-	RESTARPOINT = 12
+	RESTARTPOINT = 12,
+	ENEMYFAT = 13
 };
 
 struct Point 

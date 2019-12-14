@@ -171,6 +171,7 @@ void SceneGame::LoadResources()
 	grid->LoadGrid(MAP1);
 	
 	aladdin = new Aladdin();
+	pointReset = NULL;
 	aladdin->LoadResource();
 	dyc = 0;
 }
@@ -207,6 +208,50 @@ void SceneGame::Update(DWORD dt)
 		else if (dyc < 0)
 			dyc+=4;
 	camera->SetPosition(x - 140, y - 110 + dyc);
+
+	if (aladdin->isCollsionWithRestartPoint)
+	{
+		if (pointReset == NULL)
+			pointReset = new PointReset();
+
+		vector<LPGAMEOBJECT> gridObject;
+		grid->GetAllObject(gridObject);
+		pointReset->SetPointReset(gridObject, aladdin);
+
+		aladdin->isCollsionWithRestartPoint = false;
+	}
+	 
+	if (aladdin->GetHealth() <= 0)
+	{
+		if (aladdin->GetHeart() <= 0)
+		{
+			// isGameOver = true;
+			Aladdin * a = aladdin;
+			delete a;
+			aladdin = new Aladdin();
+			aladdin->LoadResource();
+			grid->ResetState();
+		} 
+		else if (pointReset == NULL)
+		{
+			Aladdin * a = aladdin;
+			int heart = a->GetHeart();
+			delete a;
+			aladdin = new Aladdin();
+			aladdin->LoadResource();
+			aladdin->SetHeart(heart - 1);
+			grid->ResetState();
+			
+		}
+		else
+		{
+			vector<LPGAMEOBJECT> gridObject;
+			grid->GetAllObject(gridObject);
+			pointReset->ResetState(gridObject, aladdin);
+			aladdin->SetHeart(aladdin->GetHeart());
+		}
+	}
+	Board::GetInstance()->Update(dt, aladdin->GetHealth(), aladdin->GetHeart(), aladdin->GetScore(), aladdin->GetRedJewelCount(), aladdin->GetApplesCount());
 }
 
 void SceneGame::Render()
@@ -220,16 +265,18 @@ void SceneGame::Render()
 	}
 	aladdin->Render();
 
-	//int oCount=0;
-	//for (int i = 0; i < grid->cellShowing.size(); i++)
-	//{
-	//	int id = grid->cellShowing[i];
-	//	int oC = grid->GetCell(id)->object.size();
-	//	for (int j = 0; j < oC; j++)
-	//	{
-	//		grid->GetCell(id)->object[j]->RenderBoundingBox(); // Vẽ renderBouding để debug
-	//	}
-	//}
+	int oCount=0;
+	for (int i = 0; i < grid->cellShowing.size(); i++)
+	{
+		int id = grid->cellShowing[i];
+		int oC = grid->GetCell(id)->object.size();
+		for (int j = 0; j < oC; j++)
+		{
+			grid->GetCell(id)->object[j]->RenderBoundingBox(); // Vẽ renderBouding để debug
+		}
+	}
+
+	Board::GetInstance()->Render();
 }
 
 SceneGame::SceneGame()
@@ -238,9 +285,11 @@ SceneGame::SceneGame()
 	camera = Camera::GetInstance();
 	map = Map::GetInstance();
 	LoadResources();
+	isGameOver = false;
 }
 
 SceneGame::~SceneGame()
 {
 	delete aladdin;
+	delete pointReset;
 }

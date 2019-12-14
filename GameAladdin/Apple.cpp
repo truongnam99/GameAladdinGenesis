@@ -7,6 +7,7 @@ void Apple::LoadResources()
 	Sprites * sprites = Sprites::GetInstance();
 	Animations * anim = Animations::GetInstance();
 	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(ID_TEX_ALADDIN);
+	LPDIRECT3DTEXTURE9 texture1 = Textures::GetInstance()->Get(ID_TEX_STATEDISAPPEAR);
 
 	sprites->Add(41802, 422, 1501, 429, 1508, texture);
 	Animation * ani = new Animation(300);
@@ -14,18 +15,24 @@ void Apple::LoadResources()
 	anim->Add(41802, ani);
 	this->animations[APPLE_STATE_1] = ani;
 
-	sprites->Add(41804, 476, 1512, 483, 1522, texture);
-	sprites->Add(41805, 493, 1504, 513, 1522, texture);
-	sprites->Add(41806, 523, 1500, 552, 1522, texture);
-	sprites->Add(41807, 562, 1497, 593, 1522, texture);
-	sprites->Add(41808, 603, 1495, 633, 1522, texture);
+	sprites->Add(41880, 80, 31, 118, 52, texture1);
+	sprites->Add(41881, 128, 39, 145, 52, texture1);
+	sprites->Add(41882, 152, 28, 191, 52, texture1);
+	sprites->Add(41883, 200, 36, 230, 52, texture1);
+	sprites->Add(41884, 240, 41, 284, 52, texture1);
+	sprites->Add(41885, 296, 46, 302, 52, texture1);
+	sprites->Add(41886, 312, 32, 331, 52, texture1);
+	sprites->Add(41887, 344, 25, 370, 52, texture1);
 	ani = new Animation(120);
-	ani->Add(41804, 60);
-	ani->Add(41805, 60);
-	ani->Add(41806, 60);
-	ani->Add(41807, 60);
-	ani->Add(41808, 60);
-	anim->Add(41804, ani);
+	ani->Add(41880);
+	ani->Add(41881);
+	ani->Add(41882);
+	ani->Add(41883);
+	ani->Add(41884);
+	ani->Add(41885);
+	ani->Add(41886);
+	ani->Add(41887);
+	anim->Add(41880, ani);
 	this->animations[APPLE_STATE_2] = ani;
 }
 
@@ -49,7 +56,7 @@ Apple::Apple(int id, float x, float y, int width, int height, oType type)
 	if (!isLoadedResource)
 		LoadResources();
 	this->animations[APPLE_STATE_1] = Animations::GetInstance()->Get(41802);
-	this->animations[APPLE_STATE_2] = Animations::GetInstance()->Get(41804);
+	this->animations[APPLE_STATE_2] = Animations::GetInstance()->Get(41880);
 	SetCurrentState(APPLE_STATE_1);
 }
 

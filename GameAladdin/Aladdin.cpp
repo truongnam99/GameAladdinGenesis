@@ -6,9 +6,9 @@ Aladdin::Aladdin()
 {
 	GameObject::GameObject();
 	this->type = ALADDIN;
-	this->health = 8;
+	this->health = 9;
 	int nx = 1;
-	x = 20;
+	x = 1420;
 	y = 1000;
 	width = 37;
 	height = 50;
@@ -22,9 +22,12 @@ Aladdin::Aladdin()
 	isInjured = false;
 	isSitting = false;
 	isCollisionWithWall = false;
+	isCollsionWithRestartPoint = false;
 
 	this->applesCount = 15;
-	redJewelCount = 15;
+	redJewelCount = 0;
+	score = 0;
+	heart = 3;
 }
 
 
@@ -714,7 +717,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			apples[i]->Update(dt, coObjects);
 		}
 	}
-	DebugOut((wchar_t*)L"health = %d\n", redJewelCount);
+	//DebugOut((wchar_t*)L"health = %d\n", redJewelCount);
 	stime += dt;
 	if (!isClimbing)
 		vy += ALADDIN_GRAVITY * dt;
@@ -742,6 +745,13 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOut((wchar_t*)L"%f\n", vy);
 	int countFrame = animations[currentState]->GetCountFrame(); // Đếm số frame
 	int currentFrame = animations[currentState]->GetCurrentFrame();
+
+	if (isInjured == true && stime > 1000)
+	{
+		isInjured = false;
+	}
+	CollisionWithItem(coObjects);
+	CollisionWithEnemy(coObjects);
 	if (isAttacking && currentFrame == countFrame - 1)
 	{
 		isAttacking = false;
@@ -763,14 +773,10 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		animations[ALADDIN_RUNNING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 		animations[ALADDIN_JUMPING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 	}
-	if (isInjured == true && stime > 2000)
-	{
-		isInjured = false;
-	}
-	CollisionWithItem(coObjects);
-	CollisionWithEnemy(coObjects);
+	if(isAttacking)
+		DebugOut((wchar_t*)L"Dang tan cong");
 }
-
+	
 void Aladdin::Render(int flip)
 {
 	if (apples.size() != 0)
@@ -1313,7 +1319,9 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 	list_Item.clear();
 	for (UINT i = 0; i < coObject->size(); i++)
 	{
-		if (coObject->at(i)->GetType() == oType::APPLE || coObject->at(i)->GetType() == oType::REDJEWEL)
+		if (coObject->at(i)->GetType() == oType::APPLE || coObject->at(i)->GetType() == oType::REDJEWEL 
+			|| coObject->at(i)->GetType() == oType::GENIE || coObject->at(i)->GetType() == oType::RESTARTPOINT
+			|| coObject->at(i)->GetType() == oType::HEART)
 		{
 			list_Item.push_back(coObject->at(i));
 		}
@@ -1352,7 +1360,24 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 				if (list_Item[i]->GetType() == oType::REDJEWEL)
 				{
 					redJewelCount++;
+					score += 150;
 					list_Item[i]->SetCurrentState(REDJEWEL_STATE_2);
+				}
+				if (list_Item[i]->GetType() == oType::GENIE)
+				{
+					score += 250;
+					list_Item[i]->SetCurrentState(GENIE_STATE_2);
+				}
+				if (list_Item[i]->GetType() == oType::HEART)
+				{
+					score += 150;
+					health += 1;
+					list_Item[i]->SetCurrentState(HEART_STATE_2);
+				}
+				if (list_Item[i]->GetType() == oType::RESTARTPOINT)
+				{
+					list_Item[i]->SetCurrentState(RESTARTPOINT_STATE_2);
+					isCollsionWithRestartPoint = true;
 				}
 			}
 		}
@@ -1369,7 +1394,24 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 			if (coEvents[i]->obj->GetType() == oType::REDJEWEL)
 			{
 				redJewelCount++;
-				list_Item[i]->SetCurrentState(REDJEWEL_STATE_2);
+				score += 150;
+				coEvents[i]->obj->SetCurrentState(REDJEWEL_STATE_2);
+			}
+			if (coEvents[i]->obj->GetType() == oType::GENIE)
+			{
+				score += 250;
+				coEvents[i]->obj->SetCurrentState(GENIE_STATE_2);
+			}
+			if (coEvents[i]->obj->GetType() == oType::HEART)
+			{
+				score += 150;
+				health += 1;
+				coEvents[i]->obj->SetCurrentState(HEART_STATE_2);
+			}
+			if (coEvents[i]->obj->GetType() == oType::RESTARTPOINT)
+			{
+				coEvents[i]->obj->SetCurrentState(RESTARTPOINT_STATE_2);
+				isCollsionWithRestartPoint = true;
 			}
 		}
 	}
@@ -1388,41 +1430,78 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 	list_enemy.clear();
 	for (UINT i = 0; i < coObject->size(); i++)
 	{
-		if (coObject->at(i)->GetType() == oType::ARROW)
+		if (coObject->at(i)->GetType() == oType::ARROW || coObject->at(i)->GetType() == oType::BOB)
 		{
 			list_enemy.push_back(coObject->at(i));
 		}
 	}
-	RECT r1;
-	float la, ta, ra, ba;
-	GetBoundingBox(la, ta, ra, ba);
-	r1.left = la - 3;
-	r1.top = ta;
-	r1.right = ra + 3;
-	r1.bottom = ba;
-	for (UINT i = 0; i < list_enemy.size(); i++)
-	{
-		float lo, to, ro, bo;
-		list_enemy[i]->GetBoundingBox(lo, to, ro, bo);
-		RECT r2;
-		r2.left = lo;
-		r2.top = to;
-		r2.right = ro;
-		r2.bottom = bo;
 
-		RECT dest;
-		if (IntersectRect(&dest, &r1, &r2) == true)
+	CalcPotentialCollisions(&list_enemy, coEvents);
+
+	if (coEvents.size() == 0)
+	{
+		RECT r1;
+		float la, ta, ra, ba;
+		GetBoundingBox(la, ta, ra, ba);
+		r1.left = la;
+		r1.top = ta;
+		r1.right = ra;
+		r1.bottom = ba;
+		for (UINT i = 0; i < list_enemy.size(); i++)
 		{
-			if (list_enemy[i]->GetType() == ARROW)
+			float lo, to, ro, bo;
+			list_enemy[i]->GetBoundingBox(lo, to, ro, bo);
+			RECT r2;
+			r2.left = lo;
+			r2.top = to;
+			r2.right = ro;
+			r2.bottom = bo;
+
+
+			RECT dest;
+			if (IntersectRect(&dest, &r1, &r2) == true)
+			{
+				if (list_enemy[i]->GetType() == ARROW)
+				{
+					if (!isAttacking && !isInjured)
+					{
+						SetCurrentState(ALADDIN_DAMAGE);
+					}
+				}			
+
+				if (list_enemy[i]->GetType() == BOB)
+				{
+					if (!isAttacking && !isInjured)
+					{
+						SetCurrentState(ALADDIN_DAMAGE);
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		for (UINT i = 0; i < coEvents.size(); i++)
+		{
+			if (coEvents[i]->obj->GetType() == oType::ARROW)
 			{
 				if (!isAttacking && !isInjured)
 				{
 					SetCurrentState(ALADDIN_DAMAGE);
 				}
 			}
-			// else if (1);
-			return;
+			
+			if (coEvents[i]->obj->GetType() == oType::BOB)
+			{
+				if (!isAttacking && !isInjured)
+				{
+					SetCurrentState(ALADDIN_DAMAGE);
+				}
+			}
 		}
 	}
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+
 }
 	

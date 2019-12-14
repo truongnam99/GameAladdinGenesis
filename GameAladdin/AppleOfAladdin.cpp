@@ -38,10 +38,12 @@ AppleOfAladdin::AppleOfAladdin(float x, float y, float nx)
 	this->x = x;
 	this->y = y;
 	this->nx = nx;
+	this->width = 11;
+	this->height = 11;
 	this->ny = 1.0f;
 	this->vx = APPLE_SPEED_X;
 	this->vy = -APPLE_SPEED_Y;
-
+	
 	if (isLoadedResource == false)
 		LoadResources();
 	currentState = 1;
@@ -88,7 +90,7 @@ void AppleOfAladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void AppleOfAladdin::Render(int flip)
 {
-	animations[currentState]->Render(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam(), 255, nx);
+	animations[currentState]->Render(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam(), 255);
 	RenderBoundingBox();
 }
 

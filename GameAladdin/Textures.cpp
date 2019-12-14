@@ -66,6 +66,8 @@ void Textures::LoadResources()
 	Add(ID_TEX_ENEMY, (wchar_t*)L"Resources\\textures\\enemy.png", D3DCOLOR_XRGB(120, 193, 152));
 	Add(ID_TEX_BBOX, (wchar_t*)L"Resources\\textures\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
 	Add(ID_TEX_RESOURCE_MAP1, (wchar_t*)L"Resources\\textures\\resource1.png", D3DCOLOR_XRGB(163, 73, 164));
+	Add(ID_TEX_ITEM, (wchar_t*)L"Resources\\textures\\item.png", D3DCOLOR_XRGB(248, 0, 248));
+	Add(ID_TEX_STATEDISAPPEAR, (wchar_t*)L"Resources\\textures\\statebienmat.png", D3DCOLOR_XRGB(186, 254, 202));
 }
 
 LPDIRECT3DTEXTURE9 Textures::Get(int id)

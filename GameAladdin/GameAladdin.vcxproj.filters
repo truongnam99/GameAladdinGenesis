@@ -31,6 +31,15 @@
     <Filter Include="GameObjects\Aladdin">
       <UniqueIdentifier>{e925816a-8574-4c8f-8cc9-7075b0f3c9fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObjects\Item">
+      <UniqueIdentifier>{567e1b34-dc20-4acf-91cf-69cb044cdedb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\MapObject">
+      <UniqueIdentifier>{8b2b7a46-f6eb-43a1-b1e7-e574f36c6950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects\Enemy">
+      <UniqueIdentifier>{19e3edb2-2f39-4c9b-a29e-e5ce2de5409c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -75,28 +84,52 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Rope.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="Apple.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="MovingBrick.cpp">
-      <Filter>GameObjects</Filter>
+      <Filter>GameObjects\Item</Filter>
     </ClCompile>
     <ClCompile Include="AppleOfAladdin.cpp">
-      <Filter>GameObjects</Filter>
+      <Filter>GameObjects\Aladdin</Filter>
     </ClCompile>
-    <ClCompile Include="Arrow.cpp">
-      <Filter>GameObjects</Filter>
+    <ClCompile Include="Brick.cpp">
+      <Filter>GameObjects\Item</Filter>
     </ClCompile>
     <ClCompile Include="RedJewel.cpp">
+      <Filter>GameObjects\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Heart.cpp">
+      <Filter>GameObjects\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Genie.cpp">
+      <Filter>GameObjects\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="RestartPoint.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Characters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingBrick.cpp">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Rope.cpp">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PointReset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bob.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyFat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,28 +179,52 @@
     <ClInclude Include="GameObject.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Wall.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Rope.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Apple.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="MovingBrick.h">
-      <Filter>GameObjects</Filter>
+      <Filter>GameObjects\Item</Filter>
     </ClInclude>
     <ClInclude Include="AppleOfAladdin.h">
-      <Filter>GameObjects</Filter>
+      <Filter>GameObjects\Aladdin</Filter>
     </ClInclude>
-    <ClInclude Include="Arrow.h">
-      <Filter>GameObjects</Filter>
+    <ClInclude Include="Brick.h">
+      <Filter>GameObjects\Item</Filter>
     </ClInclude>
     <ClInclude Include="RedJewel.h">
+      <Filter>GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Heart.h">
+      <Filter>GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Genie.h">
+      <Filter>GameObjects\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="RestartPoint.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Characters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingBrick.h">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Rope.h">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="PointReset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bob.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyFat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

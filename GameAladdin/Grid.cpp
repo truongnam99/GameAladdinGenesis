@@ -86,6 +86,7 @@ void Grid::LoadGrid(int idMap)
 	int width;
 	int height;
 	oType obj;
+	int lm, rm;
 	while (!input.eof())
 	{
 		input >> id;
@@ -115,6 +116,22 @@ void Grid::LoadGrid(int idMap)
 			break;
 		case REDJEWEL:
 			gobj = new RedJewel(id, x, y, width, height, REDJEWEL);
+			break;
+		case GENIE:
+			gobj = new Genie(id, x, y, width, height, GENIE);
+			break;
+		case HEART:
+			gobj = new Heart(id, x, y, width, height, HEART);
+			break;
+		case RESTARTPOINT:
+			gobj = new RestartPoint(id, x, y, width, height, RESTARTPOINT);
+			break;
+		case BOB:
+			gobj = new Bob(id, x, y, width, height, BOB);
+			break;
+		case ENEMYFAT:
+			input >> lm >> rm;
+			gobj = new EnemyFat(id, x, y, width, height, ENEMYFAT, lm, rm);
 			break;
 		}
 		AddObject(gobj);
@@ -188,6 +205,30 @@ void Grid::GetObjects(vector<LPGAMEOBJECT>& obj)
 				listObjTemp[c->object[j]->GetId()] = c->object[j];
 				obj.push_back(c->object[j]);
 			}
+		}
+	}
+}
+
+void Grid::GetAllObject(vector<LPGAMEOBJECT>& obj)
+{
+	for (int i = 0; i < rows * columns; i++)
+	{
+		Cell * cell = GetCell(i);
+		for (int j = 0; j < cell->object.size(); j++)
+		{
+			obj.push_back(cell->object[j]);
+		}
+	}
+}
+
+void Grid::ResetState() 
+{
+	for (int i = 0; i < rows * columns; i++)
+	{
+		Cell * cell = GetCell(i);
+		for (int j = 0; j < cell->object.size(); j++)
+		{
+			cell->object[j]->SetCurrentState(1);
 		}
 	}
 }

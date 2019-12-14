@@ -59,6 +59,9 @@
 #include "Apple.h"
 #include "AppleOfAladdin.h"
 #include "RedJewel.h"
+#include "Genie.h"
+#include "Heart.h"
+#include "RestartPoint.h"
 class Aladdin: public GameObject
 {
 private:
@@ -77,9 +80,12 @@ private:
 
 	int applesCount; // số táo hiện có của aladdin
 	int redJewelCount; // số redjewel hiện tại
+	int score;
+	int heart;
 	vector<AppleOfAladdin*> apples; // danh sách apple được ném ra: để xét va chạm
 	AppleOfAladdin * a;
 public:
+	bool isCollsionWithRestartPoint;
 	bool isAttacking, isJumping, isClimbing, isIdle, isRunning, isInjured, isSitting; 
 	bool isCollisionWithWall;
 	Aladdin();
@@ -100,6 +106,15 @@ public:
 	void CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject);
 	int GetGroupState(int state);
 	int GetCurrentGroupState();
-};
 
+	int GetScore() { return score; }
+	void SetScore(int score) { this->score = score; }
+	int GetApplesCount() { return applesCount; }
+	void SetApplesCount(int apple) { this->applesCount = apple; }
+	int GetRedJewelCount() { return redJewelCount; }
+	void SetReJewelCount(int ReJewel) { this->redJewelCount = ReJewel; }
+	int GetHealth() { return health; }
+	int GetHeart() { return heart; }
+	void SetHeart(int heart) { this->heart = heart; }
+};
 #endif // !_ALADDIN
