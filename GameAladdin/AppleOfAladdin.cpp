@@ -79,7 +79,7 @@ void AppleOfAladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += APPLE_GRAVITY * dt;
 	
 	// xét va chạm giữa apple với các đối tượng
-	// CollisionWithEnemy(coObjects);
+	CollisionWithEnemy(coObjects);
 	CollisionWithObjectMap(coObjects);
 	if (currentState == APPLE_STATE_1)
 	{
@@ -106,7 +106,8 @@ void AppleOfAladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 	list_enemy.clear();
 	for (UINT i = 0; i < coObject->size(); i++)
 	{
-		if (coObject->at(i)->GetType() == oType::WALL || coObject->at(i)->GetType() == oType::BRICK || coObject->at(i)->GetType() == oType::MOVINGBRICK)
+		if (coObject->at(i)->GetType() == oType::ENEMYFAT
+			|| coObject->at(i)->GetType() == oType::ENEMYTHIN)
 		{
 			list_enemy.push_back(coObject->at(i));
 		}
@@ -119,7 +120,33 @@ void AppleOfAladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 		float min_tx, min_ty, nx = 0, ny;
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 		currentState = APPLE_STATE_2;
-		coEventsResult[0]->obj->MulHealth();
+		coEventsResult[0]->obj->SetCurrentState(4);
+	}
+	else
+	{
+		RECT r1;
+		float la, ta, ra, ba;
+		GetBoundingBox(la, ta, ra, ba);
+		r1.left = la;
+		r1.top = ta;
+		r1.right = ra;
+		r1.bottom = ba;
+
+		for (UINT i = 0; i < list_enemy.size(); i++)
+		{
+			float lo, to, ro, bo;
+			list_enemy[i]->GetBoundingBox(lo, to, ro, bo);
+			RECT r2;
+			r2.left = lo;
+			r2.top = to;
+			r2.right = ro;
+			r2.bottom = bo;
+			RECT dest;
+			if (IntersectRect(&dest, &r1, &r2) == true)
+			{
+				list_enemy[i]->SetCurrentState(4);
+			}
+		}
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }

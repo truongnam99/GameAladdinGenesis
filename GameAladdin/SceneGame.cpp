@@ -184,6 +184,26 @@ void SceneGame::Update(DWORD dt)
 	for (auto x : obj)
 	{
 		x->Update(dt, &obj);
+		if (x->GetType() == ENEMYFAT)
+		{
+			EnemyFat * e = (EnemyFat *)x;
+			float x, y;
+			aladdin->GetPosition(x, y);
+			if (x < e->LeftMargin)
+				e->SetNx(-1);
+			if (x > e->RightMargin)
+				e->SetNx(1);
+		}
+		if (x->GetType() == ENEMYTHIN)
+		{
+			EnemyThin * e = (EnemyThin *)x;
+			float x, y;
+			aladdin->GetPosition(x, y);
+			if (x < e->LeftMargin)
+				e->SetNx(-1);
+			if (x > e->RightMargin)
+				e->SetNx(1);
+		}
 	}
 	// update aladdin
 	aladdin->Update(dt, &obj);

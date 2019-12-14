@@ -1,10 +1,11 @@
-﻿#ifndef _ENEMY_FAT_
-#define _ENEMY_FAT_
+#ifndef _ENEMY_THIN_
+#define _ENEMY_THIN_
 #include "GameObject.h"
+
 
 #include <cstdlib>
 #include <ctime>
-class EnemyFat :public GameObject
+class EnemyThin :public GameObject
 {
 private:
 	int ny;
@@ -13,8 +14,8 @@ private:
 
 
 public:
-	EnemyFat(int id, float x, float y, int width, int height, oType type, int leftMargin = -1, int rightMargin=-1);
-	~EnemyFat();
+	EnemyThin(int id, float x, float y, int width, int height, oType type, int leftMargin = -1, int rightMargin = -1);
+	~EnemyThin();
 	bool isOnlyStay;
 	int LeftMargin;
 	int RightMargin;

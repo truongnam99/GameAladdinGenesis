@@ -1,55 +1,45 @@
-﻿#include "EnemyFat.h"
+#include "EnemyThin.h"
 
-bool EnemyFat::isLoadedSprite = false;
+bool EnemyThin::isLoadedSprite = false;
 
-void EnemyFat::LoadSprite()
+void EnemyThin::LoadSprite()
 {
 	Sprites * sprites = Sprites::GetInstance();
 	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(ID_TEX_ENEMY);
 
 	//ENEMY_WALK
-	sprites->Add(51020, 2, 320, 49, 372, texture, -2);
-	sprites->Add(51021, 55, 318, 107, 372, texture, -4);
-	sprites->Add(51022, 111, 317, 167, 372, texture, -5);
-	sprites->Add(51023, 173, 318, 224, 372, texture, -4);
-	sprites->Add(51024, 230, 320, 279, 372, texture, -2);
-	sprites->Add(51025, 284, 319, 326, 372, texture, -3);
-	sprites->Add(51026, 334, 316, 378, 372, texture, -6);
-	sprites->Add(51027, 382, 318, 429, 372, texture, -4);
-	sprites->Add(51028, 5, 449, 49, 502, texture, -3);
-	sprites->Add(51029, 56, 448, 93, 502, texture, -4);
-	sprites->Add(51030, 98, 449, 152, 502, texture, -3);
-	sprites->Add(51031, 157, 449, 215, 502, texture, -3);
-	sprites->Add(51032, 221, 449, 270, 502, texture, -3);
-	sprites->Add(51033, 278, 449, 322, 502, texture, -3);
-	sprites->Add(51034, 6, 573, 61, 625, texture, -2);
-	sprites->Add(51035, 65, 581, 132, 625, texture, 6);
-	sprites->Add(51036, 140, 583, 210, 625, texture, 8);
-	sprites->Add(51037, 216, 582, 291, 625, texture, 7);
-	sprites->Add(51038, 297, 580, 385, 625, texture, 5);
-	sprites->Add(51039, 395, 579, 490, 625, texture, 4);
-	sprites->Add(51040, 6, 642, 49, 702, texture, -10);
-	sprites->Add(51041, 61, 629, 104, 702, texture, -23);
-	sprites->Add(51042, 116, 636, 168, 702, texture, -16);
-	sprites->Add(51043, 178, 646, 292, 702, texture, -6);
-	sprites->Add(51044, 300, 629, 391, 702, texture, -23);
-	sprites->Add(51045, 179, 719, 292, 775, texture, -6);
-	sprites->Add(51046, 305, 704, 397, 777, texture, -23);
-	sprites->Add(51047, 6, 812, 60, 860, texture, 2);
-	sprites->Add(51048, 71, 789, 134, 860, texture, -21);
-	sprites->Add(51049, 138, 803, 203, 860, texture, -7);
-	sprites->Add(51050, 210, 794, 281, 860, texture, -16);
-	sprites->Add(51051, 290, 796, 364, 860, texture, -14);
-	sprites->Add(51052, 382, 804, 448, 860, texture, -6);
+	sprites->Add(41889, 2, 9, 47, 76, texture);
+	sprites->Add(41890, 53, 10, 98, 76, texture);
+	sprites->Add(41891, 109, 11, 155, 76, texture);
+	sprites->Add(41892, 164, 11, 209, 76, texture);
+	sprites->Add(41893, 214, 10, 251, 76, texture);
+	sprites->Add(41894, 259, 9, 302, 76, texture);
+	sprites->Add(41895, 308, 9, 358, 76, texture);
+	sprites->Add(41896, 363, 11, 399, 76, texture);
+	sprites->Add(41898, 9, 82, 46, 156, texture);
+	sprites->Add(41899, 53, 96, 102, 156, texture);
+	sprites->Add(41900, 109, 98, 201, 156, texture);
+	sprites->Add(41901, 203, 97, 289, 156, texture);
+	sprites->Add(41902, 292, 96, 369, 156, texture);
+	sprites->Add(41903, 382, 96, 423, 156, texture);
+	sprites->Add(41905, 8, 175, 52, 233, texture);
+	sprites->Add(41906, 59, 185, 99, 233, texture);
+	sprites->Add(41907, 114, 160, 153, 233, texture);
+	sprites->Add(41908, 161, 165, 202, 233, texture);
+	sprites->Add(41909, 210, 171, 256, 233, texture);
+	sprites->Add(41910, 268, 162, 310, 233, texture);
+	sprites->Add(41911, 318, 184, 365, 233, texture);
+	sprites->Add(41912, 378, 185, 418, 233, texture);
+	sprites->Add(41913, 433, 166, 478, 233, texture);
 
 
 	isLoadedSprite = true;
 }
 
-EnemyFat::EnemyFat(int id, float x, float y, int width, int height, oType type, int leftMargin, int rightMargin)
+EnemyThin::EnemyThin(int id, float x, float y, int width, int height, oType type, int leftMargin, int rightMargin)
 {
 	GameObject::GameObject();
-	type = ENEMYFAT;
+	type = ENEMYTHIN;
 	this->id = id;
 	this->x = x;
 	this->y = y;
@@ -72,72 +62,63 @@ EnemyFat::EnemyFat(int id, float x, float y, int width, int height, oType type, 
 	isOnlyStay = false;
 }
 
-EnemyFat::~EnemyFat()
+EnemyThin::~EnemyThin()
 {
 }
 
 
-void EnemyFat::LoadResource()
+void EnemyThin::LoadResource()
 {
 
 	//Animations * anim = Animations::GetInstance();
 	if (!isLoadedSprite)
 		LoadSprite();
 	Animation * ani = new Animation(120, 0);
-	ani->Add(51020);
-	ani->Add(51021);
-	ani->Add(51022);
-	ani->Add(51023);
-	ani->Add(51024);
-	ani->Add(51025);
-	ani->Add(51026);
-	ani->Add(51027);
+	ani->Add(41889);
+	ani->Add(41890);
+	ani->Add(41891);
+	ani->Add(41892);
+	ani->Add(41893);
+	ani->Add(41894);
+	ani->Add(41895);
+	ani->Add(41896);
 	//anim->Add(203, ani);
 	this->animations[ENEMY_WALK] = ani;
 
 	//ENEMY_DEFIANT
 	ani = new Animation(120);
-	ani->Add(51028);
-	ani->Add(51029);
-	ani->Add(51030);
-	ani->Add(51031);
-	ani->Add(51032);
-	ani->Add(51033);
+	ani->Add(41889);
 
 	//anim->Add(204, ani);
 	this->animations[ENEMY_DEFIANT] = ani;
 
 	//ENEMY_ATTACKING
 	ani = new Animation(90);
-	ani->Add(51034);
-	ani->Add(51035);
-	ani->Add(51036);
-	ani->Add(51037);
-	ani->Add(51038);
-	ani->Add(51039);
-	ani->Add(51040);
-	ani->Add(51041);
-	ani->Add(51042);
-	ani->Add(51043);
-	ani->Add(51044);
-	ani->Add(51045);
-	ani->Add(51046);
+	ani->Add(41898);
+	ani->Add(41899);
+	ani->Add(41900);
+	ani->Add(41901);
+	ani->Add(41902);
+	ani->Add(41903);
 	//anim->Add(205, ani);
 	this->animations[ENEMY_ATTACKING] = ani;
 
 	//ENEMY_DEATH
 	ani = new Animation(120);
-	ani->Add(51047);
-	ani->Add(51048);
-	ani->Add(51049);
-	ani->Add(51050);
-	ani->Add(51051);
-	ani->Add(51052);
+	ani->Add(41905);
+	ani->Add(41906);
+	ani->Add(41907);
+	ani->Add(41908);
+	ani->Add(41909);
+	ani->Add(41910);
+	ani->Add(41911);
+	ani->Add(41912);
+	ani->Add(41913);
 	//anim->Add(206, ani);
 	this->animations[ENEMY_DEATH] = ani;
 }
 
-void EnemyFat::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+void EnemyThin::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	if (currentState != ENEMY_DEATH || health > 0)
 	{
@@ -172,7 +153,7 @@ void EnemyFat::GetBoundingBox(float & left, float & top, float & right, float & 
 	}
 }
 
-void EnemyFat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void EnemyThin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	GameObject::Update(dt);
 	if (!isOnlyStay)
@@ -183,7 +164,7 @@ void EnemyFat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			isOnlyStay = true;
 			if (x + width > RightMargin)
-				x = RightMargin - width-1;
+				x = RightMargin - width - 1;
 			else
 				x = LeftMargin + 1;
 		}
@@ -205,21 +186,21 @@ void EnemyFat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void EnemyFat::Render(int flip)
+void EnemyThin::Render(int flip)
 {
 	if (this->health <= 0)
 		return;
-	animations[currentState]->Render(x-Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam(), 255, nx, 47);
+	animations[currentState]->Render(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam(), 255, nx, 47);
 	//DebugOut((wchar_t*)L"cur state %d, total = %d, frame = %d, health = %d\n", currentState, animations[currentState]->GetCountFrame(), animations[currentState]->GetCurrentFrame(), health);
 }
 
-void EnemyFat::SetCurrentState(int state)
+void EnemyThin::SetCurrentState(int state)
 {
 	if (!isOnlyStay)
 		return;
 	if (state == currentState && state != ENEMY_DEATH)
 	{
-		if(animations[currentState]->GetCountFrame() - 1 == animations[currentState]->GetCurrentFrame())
+		if (animations[currentState]->GetCountFrame() - 1 == animations[currentState]->GetCurrentFrame())
 			animations[currentState]->SetCurrentFrame(0);
 		return;
 	}
