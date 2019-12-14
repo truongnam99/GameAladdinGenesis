@@ -52,10 +52,10 @@ void Arrow::GetBoundingBox(float & left, float & top, float & right, float & bot
 {
 	if (animations[STATE1]->GetCurrentFrame() > 3)
 	{
-		left = (float)x;
-		top = (float)y;
-		right = left + (float)width;
-		bottom = top + (float)height;
+		left = (float)x+30;
+		top = (float)y+5;
+		right = left + (float)width-30;
+		bottom = top + ((float)height-20);
 	}
 	else
 	{
@@ -74,5 +74,5 @@ void Arrow::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Arrow::Render(int flip)
 {
 	animations[STATE1]->RenderReverse(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }

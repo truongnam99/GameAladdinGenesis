@@ -68,12 +68,12 @@ Bob::~Bob()
 
 void Bob::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (animations[STATE1]->GetCurrentFrame() > 4 && animations[STATE1]->GetCurrentFrame() < 9)
+	if (animations[STATE1]->GetCurrentFrame() > 11 && animations[STATE1]->GetCurrentFrame() < 15)
 	{
-		left = (float)x;
-		top = (float)y;
-		right = left + (float)width;
-		bottom = top + (float)height;
+		left = (float)x+10;
+		top = (float)y+25;
+		right = left + (float)width-10;
+		bottom = top + (float)height-30;
 	}
 	else
 	{
@@ -82,6 +82,7 @@ void Bob::GetBoundingBox(float & left, float & top, float & right, float & botto
 		right = 0;
 		bottom = 0;
 	}
+
 }
 
 void Bob::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

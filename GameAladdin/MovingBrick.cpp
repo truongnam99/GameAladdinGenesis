@@ -69,7 +69,7 @@ void MovingBrick::GetBoundingBox(float & left, float & top, float & right, float
 		{
 			left = (float)x;
 			top = (float)y;
-			right = left + (float)width;
+			right = left + (float)width+10;
 			bottom = top + (float)height;
 		}
 		else
@@ -86,7 +86,7 @@ void MovingBrick::GetBoundingBox(float & left, float & top, float & right, float
 		{
 			left = (float)x;
 			top = (float)y;
-			right = left + (float)width;
+			right = left + (float)width+10;
 			bottom = top + (float)height;
 		}
 		else
