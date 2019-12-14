@@ -61,7 +61,8 @@ enum oType
 	REDJEWEL = 9,
 	GENIE = 10,
 	HEART = 11,
-	RESTARTPOINT = 12
+	RESTARTPOINT = 12,
+	ENEMYFAT = 13
 };
 
 struct Point 

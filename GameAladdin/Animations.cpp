@@ -12,7 +12,7 @@ void Animation::Add(int spriteId, DWORD time)
 	frames.push_back(frame);
 }
 
-void Animation::Render(float x, float y, int alpha, int flip)
+void Animation::Render(float x, float y, int alpha, int flip, int dif)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -36,7 +36,7 @@ void Animation::Render(float x, float y, int alpha, int flip)
 
 	}
 
-	frames[currentFrame]->GetSprite()->Draw(x, y, alpha, flip);
+	frames[currentFrame]->GetSprite()->Draw(x, y, alpha, flip, dif);
 }
 
 void Animation::RenderReverse(float x, float y, int alpha, int flip)

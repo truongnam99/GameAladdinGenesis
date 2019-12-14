@@ -33,7 +33,7 @@ Sprite::Sprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTU
 		this->balanceX = balanceX;
 }
 
-void Sprite::Draw(float x, float y, int alpha, int flip)
+void Sprite::Draw(float x, float y, int alpha, int flip, int dif)
 {
 	RECT rect;
 	rect.left = left;
@@ -43,14 +43,30 @@ void Sprite::Draw(float x, float y, int alpha, int flip)
 	D3DXMATRIX oldMatrixTransform; // Lấy tramsform ban đầu để set lại sau quá trình transform -> tác dụng: lật hình
 	D3DXMATRIX newMatrixTransform;
 	Game::GetInstance()->GetSpriteHandler()->GetTransform(&oldMatrixTransform);
-	if (flip == -1) { // Thực hiện flip nếu hướng di chuyển nx = -1
-		D3DXMatrixScaling(&newMatrixTransform, -1.0f, 1.0f, .0f);
-		Game::GetInstance()->GetSpriteHandler()->SetTransform(&newMatrixTransform);
-		x = -x - right + left + (right - left -37);
+	if (dif == 37) 
+	{
+		if (flip == -1) { // Thực hiện flip nếu hướng di chuyển nx = -1
+			D3DXMatrixScaling(&newMatrixTransform, -1.0f, 1.0f, .0f);
+			Game::GetInstance()->GetSpriteHandler()->SetTransform(&newMatrixTransform);
+			x = -x - right + left + (right - left - dif);// -37);
+		}
+		D3DXVECTOR3 position(x, (y + balance), 0.0f);
+		Game::GetInstance()->GetSpriteHandler()->Draw(texture, &rect, NULL, &position, D3DCOLOR_XRGB(255, 255, 255));
+	}
+	else
+	{
+		if (flip == 1) { // Thực hiện flip nếu hướng di chuyển nx = -1
+			D3DXMatrixScaling(&newMatrixTransform, -1.0f, 1.0f, .0f);
+			Game::GetInstance()->GetSpriteHandler()->SetTransform(&newMatrixTransform);
+			x = -x - right + left;
+		}
+		else
+			x -= (right- left - dif);
+		D3DXVECTOR3 position(x, (y + balance), 0.0f);
+		Game::GetInstance()->GetSpriteHandler()->Draw(texture, &rect, NULL, &position, D3DCOLOR_XRGB(255, 255, 255));
 	}
 
-	D3DXVECTOR3 position(x, (y+balance), 0.0f);
-	Game::GetInstance()->GetSpriteHandler()->Draw(texture, &rect, NULL, &position, D3DCOLOR_XRGB(255, 255, 255));
+	
 	Game::GetInstance()->GetSpriteHandler()->SetTransform(&oldMatrixTransform);
 }
 

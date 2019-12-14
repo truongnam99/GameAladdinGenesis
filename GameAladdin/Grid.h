@@ -12,6 +12,9 @@
 #include "Genie.h"
 #include "Heart.h"
 #include "RestartPoint.h"
+#include "Bob.h"
+#include "EnemyFat.h"
+
 using namespace std;
 
 class Grid
@@ -32,12 +35,14 @@ private:
 public:
 	vector<int> cellShowing; // những cell đang hiển thị lên màn hình
 
+	void ResetState();
 	static Grid * GetInstance();
 	Cell * GetCell(int id);
 	void LoadGrid(int idMap);
 	void Update(DWORD dt);
 	int GetIdCellContainPoint(Point p);
 	void GetObjects(vector<LPGAMEOBJECT> &obj);
+	void GetAllObject(vector<LPGAMEOBJECT> &obj);
 	~Grid();
 };
 #endif // !__GRID__

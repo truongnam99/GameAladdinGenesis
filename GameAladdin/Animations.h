@@ -27,7 +27,7 @@ class Animation
 public:
 	Animation(int defaultTime, int frameLoop = -1) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; this->frameLoop = frameLoop; }
 	void Add(int spriteId, DWORD time = 0);
-	void Render(float x, float y, int alpha = 255, int flip = 1);
+	void Render(float x, float y, int alpha = 255, int flip = 1, int dif = 37);
 	void RenderReverse(float x, float y, int alpha = 255, int flip = 1);
 	void CustomRender(float x, float y, int alpha = 255, int flip = 1);
 	void SetDefaultTime(int defaultTime) { this->defaultTime = defaultTime; };
