@@ -133,6 +133,10 @@ void Grid::LoadGrid(int idMap)
 			input >> lm >> rm;
 			gobj = new EnemyFat(id, x, y, width, height, ENEMYFAT, lm, rm);
 			break;
+		case ENEMYTHIN:
+			input >> lm >> rm;
+			gobj = new EnemyThin(id, x, y, width, height, ENEMYTHIN, lm, rm);
+			break;
 		}
 		AddObject(gobj);
 	}

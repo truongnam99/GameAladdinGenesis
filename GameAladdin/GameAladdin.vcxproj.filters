@@ -130,6 +130,9 @@
       <Filter>GameObjects\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="EnemyFat.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyThin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -225,6 +228,9 @@
       <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EnemyFat.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyThin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

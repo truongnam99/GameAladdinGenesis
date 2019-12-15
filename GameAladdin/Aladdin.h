@@ -62,6 +62,8 @@
 #include "Genie.h"
 #include "Heart.h"
 #include "RestartPoint.h"
+#include "EnemyFat.h"
+#include "EnemyThin.h"
 class Aladdin: public GameObject
 {
 private:
@@ -116,5 +118,6 @@ public:
 	int GetHealth() { return health; }
 	int GetHeart() { return heart; }
 	void SetHeart(int heart) { this->heart = heart; }
+	bool isAttackBySword();
 };
 #endif // !_ALADDIN

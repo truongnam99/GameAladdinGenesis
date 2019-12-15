@@ -47,6 +47,12 @@
 #define ID_TEX_ITEM 1024
 #define ID_TEX_STATEDISAPPEAR 1025
 
+#define ENEMYTHIN_WALK_SPEED 0.12f
+#define ENEMY_DEFIANT 1
+#define ENEMY_WALK 2
+#define ENEMY_ATTACKING 3
+#define ENEMY_DEATH 4
+
 //object type
 enum oType
 {
@@ -63,7 +69,8 @@ enum oType
 	GENIE = 10,
 	HEART = 11,
 	RESTARTPOINT = 12,
-	ENEMYFAT = 13
+	ENEMYFAT = 13,
+	ENEMYTHIN = 14
 };
 
 struct Point 

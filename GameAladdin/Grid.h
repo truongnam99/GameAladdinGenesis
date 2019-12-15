@@ -14,6 +14,7 @@
 #include "RestartPoint.h"
 #include "Bob.h"
 #include "EnemyFat.h"
+#include "EnemyThin.h"
 
 using namespace std;
 

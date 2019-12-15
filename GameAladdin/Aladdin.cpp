@@ -57,7 +57,7 @@ void Aladdin::LoadResource()
 	ani->Add(10103, 60);
 	ani->Add(10104, 410);
 	ani->Add(10105);
-	ani->Add(10106,120);
+	ani->Add(10106, 120);
 	ani->Add(10107);
 	ani->Add(10108, 410);
 	ani->Add(10109);
@@ -167,9 +167,9 @@ void Aladdin::LoadResource()
 	// ALADDIN_IDLE_SIT
 	sprites->Add(10406, 8, 411, 45, 461, texture, 0);
 	sprites->Add(10407, 55, 412, 96, 461, texture, 1);
-	sprites->Add(10408, 106, 421, 154, 461, texture,10);
-	sprites->Add(10409, 164, 431, 218, 461, texture,20);
-	sprites->Add(10410, 228, 426, 281, 461, texture,15);
+	sprites->Add(10408, 106, 421, 154, 461, texture, 10);
+	sprites->Add(10409, 164, 431, 218, 461, texture, 20);
+	sprites->Add(10410, 228, 426, 281, 461, texture, 15);
 	ani = new Animation(120);
 	ani->Add(10406);
 	ani->Add(10407);
@@ -282,7 +282,7 @@ void Aladdin::LoadResource()
 	sprites->Add(10913, 669, 760, 728, 804, texture, 6);
 	sprites->Add(10914, 738, 754, 775, 804, texture, 0);
 	ani = new Animation(120);
-	ani->Add(10901,50);
+	ani->Add(10901, 50);
 	ani->Add(10902, 50);
 	ani->Add(10903, 50);
 	ani->Add(10904, 50);
@@ -561,8 +561,8 @@ void Aladdin::LoadResource()
 	sprites->Add(11827, 423, 1910, 495, 1999, texture, -39);
 	sprites->Add(11828, 508, 1912, 556, 1999, texture, -37);
 	ani = new Animation(120);
-	ani->Add(11821,50);
-	ani->Add(11822,50);
+	ani->Add(11821, 50);
+	ani->Add(11822, 50);
 	ani->Add(11823, 50);
 	ani->Add(11824, 50);
 	ani->Add(11825, 50);
@@ -694,29 +694,29 @@ void Aladdin::GetBoundingBox(float & left, float & top, float & right, float & b
 			top -= 30;
 		}
 		break;
-	
+
 	case ALADDIN_IDLE1:
 		if (nx > 0) {
-			left += 15;
+			left += 5;
 		}
 		else {
-			right -= 15;
+			right -= 5;
 		}
 		break;
 	case ALADDIN_IDLE2:
 		if (nx > 0) {
-			left += 15;
+			left += 5;
 		}
 		else {
-			right -= 15;
+			right -= 5;
 		}
 		break;
 	case ALADDIN_IDLE3:
 		if (nx > 0) {
-			left += 15;
+			left += 5;
 		}
 		else {
-			right -= 15;
+			right -= 5;
 		}
 		break;
 	case ALADDIN_RUNNING1:
@@ -724,18 +724,17 @@ void Aladdin::GetBoundingBox(float & left, float & top, float & right, float & b
 		{
 			top -= 8;
 			right += 5;
-			left += 15;
+			left += 5;
 		}
 		else
 		{
 			top -= 8;
 			left -= 5;
-			right -= 15;
+			right -= 5;
 		}
 		break;
 	}
 
-	
 }
 
 void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -803,10 +802,10 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		animations[ALADDIN_RUNNING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 		animations[ALADDIN_JUMPING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 	}
-	if(isAttacking)
+	if (isAttacking)
 		DebugOut((wchar_t*)L"Dang tan cong");
 }
-	
+
 void Aladdin::Render(int flip)
 {
 	if (apples.size() != 0)
@@ -814,7 +813,7 @@ void Aladdin::Render(int flip)
 		DebugOut((wchar_t*)L"size = %d\n", apples.size());
 		for (int i = 0; i < apples.size(); i++)
 		{
-			
+
 			int state = apples[i]->GetCurrentState();
 			DebugOut((wchar_t*)L"currentState = %d currentFrame=%d", state, apples[i]->GetAnimation(state)->GetCurrentFrame());
 			if (state == APPLE_STATE_2 && apples[i]->GetAnimation(APPLE_STATE_2)->GetCountFrame() - 1 == apples[i]->GetAnimation(APPLE_STATE_2)->GetCurrentFrame())
@@ -840,8 +839,8 @@ void Aladdin::Render(int flip)
 		}
 	}
 	animations[currentState]->Render(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam(), 255, nx);
-	
-	
+
+
 	RenderBoundingBox();
 }
 
@@ -969,7 +968,7 @@ void Aladdin::SetCurrentState(int state)
 			break;
 		case ALADDIN_SITTING_ATACKING_BY_APPLE:
 			currentState = state;
-			animations[state]->SetCurrentFrame(0); 
+			animations[state]->SetCurrentFrame(0);
 			if (applesCount <= 0)
 				break;
 			if (nx == 1)
@@ -1070,7 +1069,7 @@ void Aladdin::CollisionWithBrick(vector<LPGAMEOBJECT>* coObject)
 	list_Brick.clear();
 	for (UINT i = 0; i < coObject->size(); i++)
 	{
-		if (coObject->at(i)->GetType() == oType::BRICK|| coObject->at(i)->GetType() == oType::MOVINGBRICK)
+		if (coObject->at(i)->GetType() == oType::BRICK || coObject->at(i)->GetType() == oType::MOVINGBRICK)
 		{
 			list_Brick.push_back(coObject->at(i));
 		}
@@ -1156,7 +1155,7 @@ void Aladdin::CollisionWithBrick(vector<LPGAMEOBJECT>* coObject)
 					{
 						vy = 0;
 					}
-					isCollisWithBrick = true; 
+					isCollisWithBrick = true;
 					if (isJumping)
 					{
 						isJumping = false;
@@ -1214,6 +1213,21 @@ int Aladdin::GetCurrentGroupState()
 	return GetGroupState(currentState);
 }
 
+bool Aladdin::isAttackBySword()
+{
+	switch (currentState)
+	{
+	case ALADDIN_STAYING_ATTACKING:
+	case  ALADDIN_SITTING_ATTACKING:
+	case ALADDIN_STAYING_COMBO_ATTACKING:
+	case ALADDIN_RUNING_ATTACKING:
+	case ALADDIN_JUMPING_ATTACKING:
+		return true;
+	default:
+		return false;
+	}
+}
+
 void Aladdin::CollisionWithWall(vector<LPGAMEOBJECT>* coObject)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -1233,7 +1247,7 @@ void Aladdin::CollisionWithWall(vector<LPGAMEOBJECT>* coObject)
 	}
 	RECT r1;
 	float la, ta, ra, ba;
-	GetBoundingBox(la,ta,ra,ba);
+	GetBoundingBox(la, ta, ra, ba);
 	r1.left = la - 3;
 	r1.top = ta;
 	r1.right = ra + 3;
@@ -1244,10 +1258,10 @@ void Aladdin::CollisionWithWall(vector<LPGAMEOBJECT>* coObject)
 		list_Wall[i]->GetBoundingBox(lo, to, ro, bo);
 		RECT r2;
 		r2.left = lo;
-		r2.top =  to;
+		r2.top = to;
 		r2.right = ro;
 		r2.bottom = bo;
-		
+
 
 		RECT dest;
 		if (IntersectRect(&dest, &r1, &r2) == true)
@@ -1264,7 +1278,7 @@ void Aladdin::CollisionWithWall(vector<LPGAMEOBJECT>* coObject)
 		}
 		if (list_Wall[i]->GetNx() != 0)
 			list_Wall[i]->SetNx(0);
-			
+
 	}
 
 	CalcPotentialCollisions(&list_Wall, coEvents);
@@ -1349,7 +1363,7 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 	list_Item.clear();
 	for (UINT i = 0; i < coObject->size(); i++)
 	{
-		if (coObject->at(i)->GetType() == oType::APPLE || coObject->at(i)->GetType() == oType::REDJEWEL 
+		if (coObject->at(i)->GetType() == oType::APPLE || coObject->at(i)->GetType() == oType::REDJEWEL
 			|| coObject->at(i)->GetType() == oType::GENIE || coObject->at(i)->GetType() == oType::RESTARTPOINT
 			|| coObject->at(i)->GetType() == oType::HEART)
 		{
@@ -1460,7 +1474,10 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 	list_enemy.clear();
 	for (UINT i = 0; i < coObject->size(); i++)
 	{
-		if (coObject->at(i)->GetType() == oType::ARROW || coObject->at(i)->GetType() == oType::BOB)
+		if (coObject->at(i)->GetType() == oType::ARROW
+			|| coObject->at(i)->GetType() == oType::BOB
+			|| coObject->at(i)->GetType() == oType::ENEMYFAT
+			|| coObject->at(i)->GetType() == oType::ENEMYTHIN)
 		{
 			list_enemy.push_back(coObject->at(i));
 		}
@@ -1497,7 +1514,7 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 					{
 						SetCurrentState(ALADDIN_DAMAGE);
 					}
-				}			
+				}
 
 				if (list_enemy[i]->GetType() == BOB)
 				{
@@ -1505,6 +1522,39 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 					{
 						SetCurrentState(ALADDIN_DAMAGE);
 					}
+				}
+
+				if (list_enemy[i]->GetType() == ENEMYFAT)
+				{
+					int stateEnemyNow = list_enemy[i]->GetCurrentState();
+					if (isAttackBySword())
+					{
+						list_enemy[i]->SetCurrentState(ENEMY_DEATH);
+						EnemyFat * e = (EnemyFat *)list_enemy[i];
+						e->isOnlyStay = true;
+					}
+
+					if (stateEnemyNow == ENEMY_ATTACKING)
+					{
+						SetCurrentState(ALADDIN_DAMAGE);
+					}
+					
+				}
+				if (list_enemy[i]->GetType() == ENEMYTHIN)
+				{
+					int stateEnemyNow = list_enemy[i]->GetCurrentState();
+					if (isAttackBySword())
+					{
+						list_enemy[i]->SetCurrentState(ENEMY_DEATH);
+						EnemyThin * e = (EnemyThin *)list_enemy[i];
+						e->isOnlyStay = true;
+					}
+
+					if (stateEnemyNow == ENEMY_ATTACKING)
+					{
+						SetCurrentState(ALADDIN_DAMAGE);
+					}
+
 				}
 			}
 		}
@@ -1520,7 +1570,7 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 					SetCurrentState(ALADDIN_DAMAGE);
 				}
 			}
-			
+
 			if (coEvents[i]->obj->GetType() == oType::BOB)
 			{
 				if (!isAttacking && !isInjured)
@@ -1534,4 +1584,4 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 
 
 }
-	
+

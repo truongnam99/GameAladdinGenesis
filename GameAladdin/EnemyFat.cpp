@@ -67,7 +67,7 @@ EnemyFat::EnemyFat(int id, float x, float y, int width, int height, oType type, 
 	nx = 1;
 	LoadResource();
 	currentState = ENEMY_WALK;
-
+	vx = 0.1f;
 	health = 2;
 	isOnlyStay = false;
 }
@@ -187,13 +187,13 @@ void EnemyFat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		currentState = ENEMY_WALK;
 		x += dx;
-		if (x + width >= RightMargin || x <= LeftMargin)
+		if (x + width > RightMargin || x < LeftMargin)
 		{
 			isOnlyStay = true;
 			if (x + width > RightMargin)
-				x = RightMargin - width;
+				x = RightMargin - width-1;
 			else
-				x = LeftMargin;
+				x = LeftMargin + 1;
 		}
 	}
 	if (animations[ENEMY_DEATH]->GetCountFrame() - 1 == animations[ENEMY_DEATH]->GetCurrentFrame())
@@ -231,6 +231,10 @@ void EnemyFat::SetCurrentState(int state)
 			animations[currentState]->SetCurrentFrame(0);
 		return;
 	}
+	DebugOut((wchar_t*)L"health=%d curstate=%d state=%d\n", health, currentState, state);
+
+	if (currentState == ENEMY_DEATH && animations[currentState]->GetCountFrame() - 2 > animations[currentState]->GetCurrentFrame())
+		return;
 	switch (state)
 	{
 	case ENEMY_ATTACKING:
@@ -238,6 +242,8 @@ void EnemyFat::SetCurrentState(int state)
 		animations[currentState]->SetCurrentFrame(0);
 		break;
 	case ENEMY_DEATH:
+		if (state == ENEMY_DEATH && currentState == ENEMY_DEATH)
+			break;
 		this->health--;
 		currentState = ENEMY_DEATH;
 		animations[currentState]->SetCurrentFrame(0);
