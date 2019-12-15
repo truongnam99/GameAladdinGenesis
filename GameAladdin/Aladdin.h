@@ -64,6 +64,9 @@
 #include "RestartPoint.h"
 #include "EnemyFat.h"
 #include "EnemyThin.h"
+#include "EnemyBat.h"
+#include "EnemySkeleton.h"
+
 class Aladdin: public GameObject
 {
 private:

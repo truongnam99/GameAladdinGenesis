@@ -137,8 +137,12 @@
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Characters.cpp" />
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="EnemyBat.cpp" />
     <ClCompile Include="EnemyFat.cpp" />
+    <ClCompile Include="EnemySkeleton.cpp" />
     <ClCompile Include="EnemyThin.cpp" />
+    <ClCompile Include="Foreground.cpp" />
+    <ClCompile Include="ForegroundObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Genie.cpp" />
@@ -153,6 +157,7 @@
     <ClCompile Include="Rope.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -171,8 +176,12 @@
     <ClInclude Include="Characters.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Define.h" />
+    <ClInclude Include="EnemyBat.h" />
     <ClInclude Include="EnemyFat.h" />
+    <ClInclude Include="EnemySkeleton.h" />
     <ClInclude Include="EnemyThin.h" />
+    <ClInclude Include="Foreground.h" />
+    <ClInclude Include="ForegroundObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Genie.h" />
@@ -187,6 +196,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGame.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Wall.h" />
