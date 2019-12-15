@@ -3,6 +3,7 @@
 #include <ctime>
 void SceneGame::KeyState(BYTE * state)
 {
+	DebugOut((wchar_t*)L"stste:%d\n", state[0]);
 	float vx;
 	float vy;
 	aladdin->GetSpeed(vx, vy);
@@ -123,7 +124,7 @@ void SceneGame::KeyState(BYTE * state)
 
 void SceneGame::OnKeyDown(int KeyCode)
 {
-	// DebugOut((wchar_t*)L"down:%d\n", KeyCode);
+	DebugOut((wchar_t*)L"down:%d\n", KeyCode);
 	switch (KeyCode)
 	{
 	case DIK_X:
@@ -157,7 +158,7 @@ void SceneGame::OnKeyDown(int KeyCode)
 
 void SceneGame::OnKeyUp(int KeyCode)
 {
-	
+	DebugOut((wchar_t*)L"up:%d\n", KeyCode);
 }
 
 void SceneGame::LoadResources()

@@ -773,8 +773,8 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		animations[ALADDIN_RUNNING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 		animations[ALADDIN_JUMPING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 	}
-	/*if (isAttacking)
-		DebugOut((wchar_t*)L"Dang tan cong");*/
+	if (isAttacking)
+		DebugOut((wchar_t*)L"Dang tan cong");
 }
 
 void Aladdin::Render(int flip)
