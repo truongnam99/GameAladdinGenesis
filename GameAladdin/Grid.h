@@ -15,6 +15,8 @@
 #include "Bob.h"
 #include "EnemyFat.h"
 #include "EnemyThin.h"
+#include "EnemyBat.h"
+#include "EnemySkeleton.h"
 
 using namespace std;
 

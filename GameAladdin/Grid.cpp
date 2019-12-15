@@ -4,6 +4,11 @@ Grid * Grid::instance = NULL;
 
 void Grid::AddObject(GameObject * gobj)
 {
+	if (gobj->GetType() == ENEMYBAT)
+	{
+		for (int i = 0; i < rows*columns; i++)
+			grid[i]->object.push_back(gobj);
+	}
 	Point p1;
 	float x;
 	float y;
@@ -136,6 +141,12 @@ void Grid::LoadGrid(int idMap)
 		case ENEMYTHIN:
 			input >> lm >> rm;
 			gobj = new EnemyThin(id, x, y, width, height, ENEMYTHIN, lm, rm);
+			break;
+		case ENEMYBAT:
+			gobj = new EnemyBat(id, x, y, width, height, ENEMYBAT);
+			break;
+		case ENEMYSKELETON:
+			gobj = new EnemySkeleton(id, x, y, width, height, ENEMYSKELETON);
 			break;
 		}
 		AddObject(gobj);

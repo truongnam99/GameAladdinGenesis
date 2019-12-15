@@ -46,12 +46,18 @@
 #define ID_TEX_RESOURCE_MAP1 1023
 #define ID_TEX_ITEM 1024
 #define ID_TEX_STATEDISAPPEAR 1025
+#define ID_TEX_BAT 1026
+#define ID_TEX_SKELETON 1027
+#define ID_TEX_BOSS 1028
+#define ID_TEX_RESOURCE_MAP1A 1029 
 
 #define ENEMYTHIN_WALK_SPEED 0.12f
 #define ENEMY_DEFIANT 1
 #define ENEMY_WALK 2
 #define ENEMY_ATTACKING 3
 #define ENEMY_DEATH 4
+
+
 
 //object type
 enum oType
@@ -70,13 +76,25 @@ enum oType
 	HEART = 11,
 	RESTARTPOINT = 12,
 	ENEMYFAT = 13,
-	ENEMYTHIN = 14
+	ENEMYTHIN = 14,
+	ENEMYSKELETON = 15,
+	ENEMYBAT = 16,
+	SKELETON = 17
 };
 
 struct Point 
 {
 	int x;
 	int y;
+	float distance(Point a) 
+	{
+		return sqrt(abs((x - a.x)*(x - a.x) + (y - a.y)*(y - a.y)));
+	}
+	float distance(float x, float y)
+	{
+		return sqrt(abs((this->x - x)*(this->x - x) + (y - this->y)*(y - this->y)));
+	}
+
 };
 
 struct BoundingBox

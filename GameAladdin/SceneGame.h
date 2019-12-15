@@ -8,7 +8,7 @@
 #include "Aladdin.h"
 #include "Board.h"
 #include "PointReset.h"
-
+#include "Foreground.h"
 class SceneGame:public Scene
 {
 private: 
@@ -29,6 +29,8 @@ private:
 	int dyc;// biến dùng tạo hiệu ứng chuyển động cho cam
 
 	vector<LPGAMEOBJECT> obj;
+	Foreground * foreground;
+	ForegroundObject * foregroundx;
 public:
 	void KeyState(BYTE *state); // Bắt các sự kiện phím để xử lý
 	void OnKeyDown(int KeyCode); // 

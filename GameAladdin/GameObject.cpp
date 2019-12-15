@@ -113,6 +113,7 @@ void GameObject::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void GameObject::Render(int flip)
 {
+	
 }
 
 GameObject::GameObject()

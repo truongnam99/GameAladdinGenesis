@@ -8,7 +8,7 @@ Aladdin::Aladdin()
 	this->type = ALADDIN;
 	this->health = 9;
 	int nx = 1;
-	x = 1420;
+	x = 100;
 	y = 1000;
 	width = 37;
 	height = 50;
@@ -802,20 +802,20 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		animations[ALADDIN_RUNNING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 		animations[ALADDIN_JUMPING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 	}
-	if (isAttacking)
-		DebugOut((wchar_t*)L"Dang tan cong");
+	/*if (isAttacking)
+		DebugOut((wchar_t*)L"Dang tan cong");*/
 }
 
 void Aladdin::Render(int flip)
 {
 	if (apples.size() != 0)
 	{
-		DebugOut((wchar_t*)L"size = %d\n", apples.size());
+		//DebugOut((wchar_t*)L"size = %d\n", apples.size());
 		for (int i = 0; i < apples.size(); i++)
 		{
 
 			int state = apples[i]->GetCurrentState();
-			DebugOut((wchar_t*)L"currentState = %d currentFrame=%d", state, apples[i]->GetAnimation(state)->GetCurrentFrame());
+			//DebugOut((wchar_t*)L"currentState = %d currentFrame=%d", state, apples[i]->GetAnimation(state)->GetCurrentFrame());
 			if (state == APPLE_STATE_2 && apples[i]->GetAnimation(APPLE_STATE_2)->GetCountFrame() - 1 == apples[i]->GetAnimation(APPLE_STATE_2)->GetCurrentFrame())
 			{
 				AppleOfAladdin * a = apples[i];
@@ -1477,9 +1477,18 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 		if (coObject->at(i)->GetType() == oType::ARROW
 			|| coObject->at(i)->GetType() == oType::BOB
 			|| coObject->at(i)->GetType() == oType::ENEMYFAT
-			|| coObject->at(i)->GetType() == oType::ENEMYTHIN)
+			|| coObject->at(i)->GetType() == oType::ENEMYTHIN
+			|| coObject->at(i)->GetType() == oType::ENEMYBAT
+			|| coObject->at(i)->GetType() == oType::ENEMYSKELETON)
 		{
 			list_enemy.push_back(coObject->at(i));
+			if (coObject->at(i)->GetType() == oType::ENEMYSKELETON)
+			{
+				EnemySkeleton * eSke = (EnemySkeleton *)coObject->at(i);
+				if (eSke->skeletons.size() > 0)
+					for (int j = 0; j < eSke->skeletons.size(); j++)
+						list_enemy.push_back(eSke->skeletons[j]);
+			}
 		}
 	}
 
@@ -1556,7 +1565,47 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 					}
 
 				}
+				if (list_enemy[i]->GetType() == ENEMYBAT)
+				{
+					if (isAttackBySword())
+					{
+						list_enemy[i]->SetCurrentState(BAT_DEATH);
+						list_enemy[i]->MulHealth();
+						score += 100;
+					}
+					else
+					{
+						SetCurrentState(ALADDIN_DAMAGE);
+						EnemyBat * e = (EnemyBat *)list_enemy[i];
+						e->SetN(-1);
+					}
+				}
+				if (list_enemy[i]->GetType() == ENEMYSKELETON)
+				{
+					if (isAttackBySword())
+					{
+						EnemySkeleton * e = (EnemySkeleton *)list_enemy[i];
+						e->isDeath = true;
+					}
+				}
+				if (list_enemy[i]->GetType() == SKELETON)
+				{
+					Skeleton * e = (Skeleton *)list_enemy[i];
+					if (isAttackBySword())
+					{
+						e->isDeath = true;
+					}
+					else
+					{
+						if (!e->isDeath)
+						{
+							SetCurrentState(ALADDIN_DAMAGE);
+							e->isDeath = true;
+						}
+					}
+				}
 			}
+			
 		}
 	}
 	else
@@ -1576,6 +1625,46 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 				if (!isAttacking && !isInjured)
 				{
 					SetCurrentState(ALADDIN_DAMAGE);
+				}
+			}
+			if (coEvents[i]->obj->GetType() == ENEMYBAT)
+			{
+				if (isAttackBySword())
+				{
+					coEvents[i]->obj->SetCurrentState(BAT_DEATH);
+					coEvents[i]->obj->MulHealth();
+					score += 100;
+				}
+				else
+				{
+					SetCurrentState(ALADDIN_DAMAGE);
+					EnemyBat * e = (EnemyBat *)coEvents[i];
+					e->SetN(-1);
+				}
+			}
+			if (coEvents[i]->obj->GetType() == ENEMYSKELETON)
+			{
+				if (isAttackBySword())
+				{
+					EnemySkeleton * e = (EnemySkeleton *)coEvents[i]->obj;
+					e->isDeath = true;
+				}
+			}
+			if (coEvents[i]->obj->GetType() == SKELETON)
+			{
+				Skeleton * e = (Skeleton *)coEvents[i];
+				if (isAttackBySword())
+				{
+
+					e->isDeath = true;
+				}
+				else
+				{
+					if (!e->isDeath)
+					{
+						SetCurrentState(ALADDIN_DAMAGE);
+						e->isDeath = true;
+					}
 				}
 			}
 		}

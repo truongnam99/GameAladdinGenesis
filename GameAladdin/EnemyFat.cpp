@@ -231,7 +231,6 @@ void EnemyFat::SetCurrentState(int state)
 			animations[currentState]->SetCurrentFrame(0);
 		return;
 	}
-	DebugOut((wchar_t*)L"health=%d curstate=%d state=%d\n", health, currentState, state);
 
 	if (currentState == ENEMY_DEATH && animations[currentState]->GetCountFrame() - 2 > animations[currentState]->GetCurrentFrame())
 		return;

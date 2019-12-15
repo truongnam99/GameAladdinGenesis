@@ -7,6 +7,8 @@
 #define APPLE_SPEED_X 0.25f//chỉnh tốc độ quả táo 
 #define APPLE_SPEED_Y 0.1f
 #define APPLE_GRAVITY 0.00030f
+
+#include "EnemySkeleton.h"
 class AppleOfAladdin: public GameObject
 {
 private:
