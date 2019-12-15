@@ -598,18 +598,6 @@ void Aladdin::GetBoundingBox(float & left, float & top, float & right, float & b
 	right = left + (float)width;
 	bottom = top + (float)height;
 	switch (currentState) {
-	case ALADDIN_RUNNING1:
-		if (nx > 0)
-		{
-			top -= 8;
-			right += 5;
-		}
-		else
-		{
-			top -= 8;
-			left -= 5;
-		}
-		break;
 	case ALADDIN_RUNING_ATTACKING:
 		if (nx > 0) {
 			top -= 10;
@@ -674,11 +662,13 @@ void Aladdin::GetBoundingBox(float & left, float & top, float & right, float & b
 	case ALADDIN_IDLE_SIT:
 		if (nx > 0) {
 			top += 20;
-			right += 17;
+			right += 10;
+			left += 15;
 		}
 		else {
 			top += 20;
-			left -= 17;
+			left -= 10;
+			right -= 15;
 		}
 		break;
 	case ALADDIN_SITTING_ATTACKING:
@@ -702,6 +692,45 @@ void Aladdin::GetBoundingBox(float & left, float & top, float & right, float & b
 			right += 30;
 			left -= 45;
 			top -= 30;
+		}
+		break;
+
+	case ALADDIN_IDLE1:
+		if (nx > 0) {
+			left += 5;
+		}
+		else {
+			right -= 5;
+		}
+		break;
+	case ALADDIN_IDLE2:
+		if (nx > 0) {
+			left += 5;
+		}
+		else {
+			right -= 5;
+		}
+		break;
+	case ALADDIN_IDLE3:
+		if (nx > 0) {
+			left += 5;
+		}
+		else {
+			right -= 5;
+		}
+		break;
+	case ALADDIN_RUNNING1:
+		if (nx > 0)
+		{
+			top -= 8;
+			right += 5;
+			left += 5;
+		}
+		else
+		{
+			top -= 8;
+			left -= 5;
+			right -= 5;
 		}
 		break;
 	}

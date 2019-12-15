@@ -15,13 +15,13 @@ void Arrow::LoadResources()
 	sprites->Add(41826, 157, 668, 199, 700, texture);
 	sprites->Add(41827, 204, 668, 253, 703, texture);
 
-	Animation * ani = new Animation(150);
-	ani->Add(41822);
-	ani->Add(41823);
-	ani->Add(41824);
-	ani->Add(41825);
-	ani->Add(41826);
-	ani->Add(41827);
+	Animation * ani = new Animation(50);
+	ani->Add(41822,700);
+	ani->Add(41823,10);
+	ani->Add(41824,10);
+	ani->Add(41825,10);
+	ani->Add(41826,10);
+	ani->Add(41827,700);
 	anim->Add(41822, ani);
 	this->animations[STATE1] = ani;
 }
@@ -52,10 +52,10 @@ void Arrow::GetBoundingBox(float & left, float & top, float & right, float & bot
 {
 	if (animations[STATE1]->GetCurrentFrame() > 3)
 	{
-		left = (float)x;
-		top = (float)y;
-		right = left + (float)width;
-		bottom = top + (float)height;
+		left = (float)x+30;
+		top = (float)y+5;
+		right = left + (float)width-30;
+		bottom = top + ((float)height-20);
 	}
 	else
 	{

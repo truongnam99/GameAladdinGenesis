@@ -141,6 +141,7 @@ void EnemyFat::GetBoundingBox(float & left, float & top, float & right, float & 
 {
 	if (currentState != ENEMY_DEATH || health > 0)
 	{
+		
 		left = (float)x;
 		top = (float)y;
 		right = left + (float)width;
@@ -148,10 +149,16 @@ void EnemyFat::GetBoundingBox(float & left, float & top, float & right, float & 
 		switch (currentState)
 		{
 		case ENEMY_ATTACKING:
-			if (nx > 0)
-				right += 20;
-			else
-				left -= 20;
+			if (nx > 0) {
+				right += 60;
+				
+				top -= 20;
+			}
+			else {
+				
+				top -= 20;
+				left -= 60;
+			}
 			break;
 		case ENEMY_WALK:
 
@@ -162,6 +169,7 @@ void EnemyFat::GetBoundingBox(float & left, float & top, float & right, float & 
 
 			break;
 		}
+
 	}
 	else
 	{

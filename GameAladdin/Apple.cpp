@@ -23,7 +23,7 @@ void Apple::LoadResources()
 	sprites->Add(41885, 296, 46, 302, 52, texture1);
 	sprites->Add(41886, 312, 32, 331, 52, texture1);
 	sprites->Add(41887, 344, 25, 370, 52, texture1);
-	ani = new Animation(120);
+	ani = new Animation(30);
 	ani->Add(41880);
 	ani->Add(41881);
 	ani->Add(41882);

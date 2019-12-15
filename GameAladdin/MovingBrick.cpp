@@ -14,11 +14,11 @@ void MovingBrick::LoadResource()
 	sprites->Add(31104, 143, 639, 181, 660, texture);
 	sprites->Add(31105, 186, 639, 226, 663, texture);
 	Animation * ani = new Animation(60, 3);
-	ani->Add(31101, 350);
-	ani->Add(31102, 250);
-	ani->Add(31103, 200);
-	ani->Add(31104, 250);
-	ani->Add(31105, 350);
+	ani->Add(31101, 700);//350
+	ani->Add(31102, 100);//250
+	ani->Add(31103, 100);//200
+	ani->Add(31104, 100);//250
+	ani->Add(31105, 700);//350
 	anim->Add(31101, ani);
 	this->animations[STATE1] = ani;
 }
@@ -69,7 +69,7 @@ void MovingBrick::GetBoundingBox(float & left, float & top, float & right, float
 		{
 			left = (float)x;
 			top = (float)y;
-			right = left + (float)width;
+			right = left + (float)width+10;
 			bottom = top + (float)height;
 		}
 		else
@@ -86,7 +86,7 @@ void MovingBrick::GetBoundingBox(float & left, float & top, float & right, float
 		{
 			left = (float)x;
 			top = (float)y;
-			right = left + (float)width;
+			right = left + (float)width+10;
 			bottom = top + (float)height;
 		}
 		else
