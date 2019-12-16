@@ -27,10 +27,7 @@ Sprite::Sprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTU
 	this->bottom = bottom;
 	this->texture = tex;
 	this->balance = balance;
-	if (balanceX == 0)
-		this->balanceX = (this->right - this->left) / 2;
-	else
-		this->balanceX = balanceX;
+	this->balanceX = balanceX;
 }
 
 void Sprite::Draw(float x, float y, int alpha, int flip, int dif)
@@ -48,7 +45,11 @@ void Sprite::Draw(float x, float y, int alpha, int flip, int dif)
 		if (flip == -1) { // Thực hiện flip nếu hướng di chuyển nx = -1
 			D3DXMatrixScaling(&newMatrixTransform, -1.0f, 1.0f, .0f);
 			Game::GetInstance()->GetSpriteHandler()->SetTransform(&newMatrixTransform);
-			x = -x - right + left + (right - left - dif);// -37);
+			x = -x - right + left + (right - left - dif);// -balanceX;// -37);
+		}
+		else
+		{
+			//x += balanceX;
 		}
 		D3DXVECTOR3 position(x, (y + balance), 0.0f);
 		Game::GetInstance()->GetSpriteHandler()->Draw(texture, &rect, NULL, &position, D3DCOLOR_XRGB(255, 255, 255));

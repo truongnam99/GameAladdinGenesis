@@ -108,7 +108,8 @@ void AppleOfAladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 	{
 		if (coObject->at(i)->GetType() == oType::ENEMYFAT
 			|| coObject->at(i)->GetType() == oType::ENEMYTHIN
-			|| coObject->at(i)->GetType() == oType::ENEMYBAT)
+			|| coObject->at(i)->GetType() == oType::ENEMYBAT
+			|| coObject->at(i)->GetType() == oType::ENEMYSKELETON)
 		{
 			list_enemy.push_back(coObject->at(i));
 		}
@@ -150,11 +151,12 @@ void AppleOfAladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 				list_enemy[i]->SetCurrentState(4);
 				if (list_enemy[i]->GetType() == ENEMYBAT)
 					list_enemy[i]->MulHealth();
-			}
-			if (list_enemy[i]->GetType() == ENEMYSKELETON)
-			{
-				EnemySkeleton * e = (EnemySkeleton *)list_enemy[i];
-				e->isDeath = true;
+				if (list_enemy[i]->GetType() == ENEMYSKELETON)
+				{
+					EnemySkeleton * e = (EnemySkeleton *)list_enemy[i];
+					e->isDeath = true;
+				}
+				currentState = APPLE_STATE_2;
 			}
 		}
 	}

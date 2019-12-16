@@ -117,7 +117,7 @@ void EnemyBat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	if (currentState == BAT_STAY)
 	{
-		if (stayPoint.distance(aladdinPosition) < 200)
+		if (stayPoint.distance(aladdinPosition) < 100)
 		{
 			currentState = BAT_FLY;
 			d = stayPoint.distance(aladdinPosition) / 35;

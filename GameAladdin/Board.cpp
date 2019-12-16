@@ -52,7 +52,7 @@ Board::Board()
 	sprites->Add(APPLE_BOARD, 17, 3437, 28, 3449, texture);
 	sprites->Add(REDJEWEL_BOARD, 49, 3435, 66, 3451, texture);
 
-	Animation * ani = new Animation(120);
+	Animation * ani = new Animation(120,0);
 	ani->Add(-41);
 	ani->Add(-42);
 	ani->Add(-43);

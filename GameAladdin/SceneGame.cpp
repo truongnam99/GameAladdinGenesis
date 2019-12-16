@@ -1,9 +1,9 @@
 ﻿#include "SceneGame.h"
 #include <cstdlib>
 #include <ctime>
+#include "Sound.h"
 void SceneGame::KeyState(BYTE * state)
 {
-	DebugOut((wchar_t*)L"stste:%d\n", state[0]);
 	float vx;
 	float vy;
 	aladdin->GetSpeed(vx, vy);
@@ -124,7 +124,6 @@ void SceneGame::KeyState(BYTE * state)
 
 void SceneGame::OnKeyDown(int KeyCode)
 {
-	DebugOut((wchar_t*)L"down:%d\n", KeyCode);
 	switch (KeyCode)
 	{
 	case DIK_X:
@@ -153,12 +152,14 @@ void SceneGame::OnKeyDown(int KeyCode)
 			aladdin->SetCurrentState(ALADDIN_SITTING_ATACKING_BY_APPLE);
 		else aladdin->SetCurrentState(ALADDIN_STAYING_ATTACKING_BY_APPLE);
 		break;
+	case DIK_Q:
+		aladdin->SetHealth(9);
 	}
+
 }
 
 void SceneGame::OnKeyUp(int KeyCode)
 {
-	DebugOut((wchar_t*)L"up:%d\n", KeyCode);
 }
 
 void SceneGame::LoadResources()
@@ -179,22 +180,25 @@ void SceneGame::LoadResources()
 
 	// load resource cho foreground
 	Sprites * sprites = Sprites::GetInstance();
-	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(ID_TEX_RESOURCE_MAP1A);
+	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(ID_TEX_RESOURCE_MAP1);
 	sprites->Add(51056, 208, 13, 248, 357, texture);
 	sprites->Add(51057, 528, 13, 560, 173, texture);
 	sprites->Add(51058, 848, 13, 880, 748, texture);
 	sprites->Add(51059, 977, 210, 1009, 402, texture);
 	sprites->Add(51060, 1068, 210, 1146, 418, texture);
+	texture = Textures::GetInstance()->Get(ID_TEX_RESOURCE_MAP1A);
 	sprites->Add(51064, 220, 316, 739, 572, texture);
 
 	foreground = new Foreground();
-	foreground->list_foregroundObject.push_back(new ForegroundObject(51056, 177, 762));
-	foreground->list_foregroundObject.push_back(new ForegroundObject(51057, 498, 957));
-	foreground->list_foregroundObject.push_back(new ForegroundObject(51058, 817, 373));
-	foreground->list_foregroundObject.push_back(new ForegroundObject(51059, 1169, 925));
-	foreground->list_foregroundObject.push_back(new ForegroundObject(51060, 2193, 69));
+	foreground->list_foregroundObject.push_back(new ForegroundObject(51056, 176, 768));
+	foreground->list_foregroundObject.push_back(new ForegroundObject(51057, 497, 952));
+	foreground->list_foregroundObject.push_back(new ForegroundObject(51058, 817, 377));
+	foreground->list_foregroundObject.push_back(new ForegroundObject(51059, 1168, 920));
+	foreground->list_foregroundObject.push_back(new ForegroundObject(51060, 2192, 65));
 	
 	foregroundx = new ForegroundObject(51064, 0, 0, 519, 256);
+
+	Sound::GetInstance()->Play(eSound::sound_Story);
 }
 
 void SceneGame::Update(DWORD dt)

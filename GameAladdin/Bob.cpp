@@ -23,7 +23,7 @@ void Bob::LoadResources()
 	sprites->Add(51013, 563, 639, 595, 695, texture);
 	sprites->Add(51014, 600, 639, 633, 692, texture);
 	sprites->Add(51015, 638, 639, 671, 691, texture);
-	Animation * ani = new Animation(120);
+	Animation * ani = new Animation(90);
 	ani->Add(51001, 200);
 	ani->Add(51002);
 	ani->Add(51003);
@@ -68,30 +68,96 @@ Bob::~Bob()
 
 void Bob::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (animations[STATE1]->GetCurrentFrame() > 11 && animations[STATE1]->GetCurrentFrame() < 15)
+	if (id % 2)
 	{
-		left = (float)x+10;
-		top = (float)y+25;
-		right = left + (float)width-10;
-		bottom = top + (float)height-30;
+		if (animations[STATE1]->GetCurrentFrame() > 11 && animations[STATE1]->GetCurrentFrame() < 15)
+		{
+			left = (float)x + 10;
+			top = (float)y + 25;
+			right = left + (float)width - 10;
+			bottom = top + (float)height - 30;
+		}
+		else
+		{
+			left = 0;
+			top = 0;
+			right = 0;
+			bottom = 0;
+		}
 	}
 	else
 	{
-		left = 0;
-		top = 0;
-		right = 0;
-		bottom = 0;
+		
+		if (animations[STATE1]->GetCountFrame() - animations[STATE1]->GetCurrentFrame() >= 11)
+		{
+			left = (float)x + 10;
+			top = (float)y + 25;
+			right = left + (float)width - 10;
+			bottom = top + (float)height - 30;
+		}
+		else
+		{
+			left = 0;
+			top = 0;
+			right = 0;
+			bottom = 0;
+		}
 	}
-
+	
 }
 
 void Bob::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
+	GameObject::Update(dt);
+	if (animations[STATE1]->GetCurrentFrame() == -1)
+	{
+		int chk = id % 2;
+		LPGAMEOBJECT e = NULL;
+		LPGAMEOBJECT e2 = NULL;
+		int i = 0;
+		for (; i < coObjects->size(); i++)
+		{
+			if (coObjects->at(i)->GetType() == BOB && coObjects->at(i)->GetId() % 2)
+			{
+				e = coObjects->at(i);
+				return;
+			}
+		}
+		for (; i < coObjects->size(); i++)
+		{
+			if (coObjects->at(i)->GetType() == BOB && coObjects->at(i)->GetId() % 2 == 0)
+			{
+				e2 = coObjects->at(i);
+				return;
+			}
+		}
+		DWORD now = GetTickCount();
+		if (e->GetId() % 2 == chk)
+		{
+			animations[STATE1]->SetCurrentFrame(e->GetAnimation(1)->GetCurrentFrame());
+			animations[STATE1]->SetLastFrameTime(now);
+			animations[STATE1]->SetFlagReverse(e->GetAnimation(1)->GetFlagReverse());
+		}
+		else if (e2->GetId() % 2 == chk)
+		{
+			animations[STATE1]->SetCurrentFrame(e2->GetAnimation(1)->GetCurrentFrame());
+			animations[STATE1]->SetLastFrameTime(now);
+			animations[STATE1]->SetFlagReverse(e2->GetAnimation(1)->GetFlagReverse());
+		}
+		else
+		{
+			animations[STATE1]->SetCurrentFrame(animations[STATE1]->GetCountFrame() - e->GetAnimation(1)->GetCurrentFrame() - 1);
+			animations[STATE1]->SetLastFrameTime(now);
+			animations[STATE1]->SetFlagReverse(e->GetAnimation(1)->GetFlagReverse()*(-1));
+		}
+	}
 }
 
 void Bob::Render(int flip)
 {
-	animations[STATE1]->RenderReverse(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
+	if (id % 2)
+		animations[STATE1]->RenderReverse(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
+	else
+		animations[STATE1]->CustomRender(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
 	RenderBoundingBox();
 }

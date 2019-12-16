@@ -7,26 +7,26 @@ void EnemySkeleton::LoadSprite()
 	Sprites * sprites = Sprites::GetInstance();
 	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(ID_TEX_SKELETON);
 	isLoadedSprite = true;
-	sprites->Add(41915, 16, 70, 102, 96, texture);
-	sprites->Add(41916, 138, 67, 218, 96, texture);
-	sprites->Add(41917, 262, 50, 337, 95, texture);
-	sprites->Add(41918, 394, 36, 456, 96, texture);
-	sprites->Add(41919, 518, 28, 568, 95, texture);
-	sprites->Add(41920, 639, 24, 687, 95, texture);
-	sprites->Add(41921, 761, 20, 809, 95, texture);
-	sprites->Add(41922, 882, 14, 933, 95, texture);
-	sprites->Add(41923, 1002, 14, 1053, 95, texture);
-	sprites->Add(41924, 1122, 14, 1174, 95, texture);
-	sprites->Add(41925, 1225, 14, 1293, 95, texture);
-	sprites->Add(41926, 1348, 7, 1413, 96, texture);
-	sprites->Add(41928, 43, 133, 93, 215, texture);
-	sprites->Add(41929, 163, 134, 212, 215, texture);
-	sprites->Add(41930, 261, 131, 322, 215, texture);
-	sprites->Add(41931, 378, 140, 442, 215, texture);
-	sprites->Add(41932, 490, 130, 564, 215, texture);
-	sprites->Add(41933, 610, 124, 691, 215, texture);
-	sprites->Add(41934, 731, 138, 826, 215, texture);
-	sprites->Add(41935, 860, 136, 920, 215, texture);
+	sprites->Add(41915, 16, 70, 102, 96, texture, 55, -5);
+	sprites->Add(41916, 138, 67, 218, 96, texture, 52, 1);
+	sprites->Add(41917, 262, 50, 337, 95, texture, 36, 6);
+	sprites->Add(41918, 394, 36, 456, 96, texture, 21, 19);
+	sprites->Add(41919, 518, 28, 568, 95, texture, 14, 31);
+	sprites->Add(41920, 639, 24, 687, 95, texture, 10, 33);
+	sprites->Add(41921, 761, 20, 809, 95, texture, 6, 33);
+	sprites->Add(41922, 882, 14, 933, 95, texture, 0, 30);
+	sprites->Add(41923, 1002, 14, 1053, 95, texture, 0, 30);
+	sprites->Add(41924, 1122, 14, 1174, 95, texture, 0, 29);
+	sprites->Add(41925, 1125, 14, 1193, 95, texture, 0, 13);
+	sprites->Add(41926, 1348, 7, 1415, 96, texture, -8, 14);
+	sprites->Add(41927, 43, 133, 93, 215, texture, -1, 31);
+	sprites->Add(41928, 163, 134, 212, 215, texture, 0, 32);
+	sprites->Add(41929, 261, 131, 322, 215, texture, -3, 20);
+	sprites->Add(41930, 378, 140, 442, 215, texture, 6, 17);
+	sprites->Add(41931, 490, 130, 564, 215, texture, -4, 7);
+	sprites->Add(41932, 610, 124, 691, 215, texture, -10, 0);
+	sprites->Add(41933, 731, 138, 826, 215, texture, 4, -14);
+	sprites->Add(41934, 860, 136, 920, 215, texture, 2, 21);
 	sprites->Add(41936, 1009, 180, 1025, 185, texture);
 	sprites->Add(41937, 1138, 176, 1144, 191, texture);
 	sprites->Add(41938, 1256, 177, 1268, 190, texture);
@@ -36,7 +36,7 @@ void EnemySkeleton::LoadSprite()
 void EnemySkeleton::LoadResource()
 {
 	Animation * ani = new Animation(120);
-	ani->Add(41928);
+	ani->Add(41915);
 	this->animations[SKELETON_STAY] = ani;
 	ani = new Animation(120);
 	ani->Add(41916);
@@ -49,7 +49,8 @@ void EnemySkeleton::LoadResource()
 	ani->Add(41923);
 	ani->Add(41924);
 	ani->Add(41925);
-	ani->Add(41926); 
+	ani->Add(41926);
+	ani->Add(41927);
 	ani->Add(41928);
 	ani->Add(41929);
 	ani->Add(41930);
@@ -57,7 +58,6 @@ void EnemySkeleton::LoadResource()
 	ani->Add(41932);
 	ani->Add(41933);
 	ani->Add(41934);
-	ani->Add(41935);
 	this->animations[SKELETON_DEATH] = ani;
 }
 

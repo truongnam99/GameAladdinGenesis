@@ -1,5 +1,5 @@
 ﻿#include "Aladdin.h"
-
+#include "Sound.h"
 
 
 Aladdin::Aladdin()
@@ -804,6 +804,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (isAttacking)
 		DebugOut((wchar_t*)L"Dang tan cong");
+	DebugOut((wchar_t*)L"stime = %d\n", stime);
 }
 
 void Aladdin::Render(int flip)
@@ -860,6 +861,19 @@ void Aladdin::SetCurrentState(int state)
 				break;
 			if (isAttacking || isJumping || isClimbing || isInjured)
 				break;
+			DebugOut((wchar_t*)L"CRRSTATE=%d", currentState);
+			DebugOut((wchar_t*)L"frame=%d", animations[ALADDIN_RUNNING2]->GetCurrentFrame());
+			if (currentState == ALADDIN_RUNNING2 && animations[currentState]->GetCountFrame() - 2 > animations[currentState]->GetCurrentFrame())
+			{
+				DebugOut((wchar_t*)L"frame=%d", animations[currentState]->GetCurrentFrame());
+				break;
+			}
+			if (currentState == ALADDIN_RUNNING1 && stime > 1000)
+			{
+				animations[ALADDIN_RUNNING2]->SetCurrentFrame(0);
+				currentState = ALADDIN_RUNNING2;
+				break;
+			}
 			currentState = state;
 			animations[ALADDIN_IDLE1]->SetCurrentFrame(0);
 			isAttacking = false;
@@ -869,6 +883,7 @@ void Aladdin::SetCurrentState(int state)
 			isInjured = false;
 			isSitting = false;
 			isRunning = false;
+			stime = 0;
 			break;
 		case ALADDIN_IDLE2:
 			if (isAttacking || isJumping || isClimbing || isInjured)
@@ -916,13 +931,16 @@ void Aladdin::SetCurrentState(int state)
 			isIdle = false;
 			isSitting = false;
 			isRunning = true;
+			stime = 0;
 			break;
 		case ALADDIN_RUNNING2:
-
+			currentState = state;
+			animations[state]->SetCurrentFrame(0);
 			break;
 		case ALADDIN_PUSHING:
 			currentState = state;
 			animations[state]->SetCurrentFrame(0);
+			Sound::GetInstance()->Play(eSound::sound_AladinPush);
 			break;
 		case ALADDIN_JUMPING:
 			vy = -ALADIN_JUMP_SPEED;
@@ -937,22 +955,27 @@ void Aladdin::SetCurrentState(int state)
 		case ALADDIN_STAYING_ATTACKING:
 			currentState = state;
 			animations[state]->SetCurrentFrame(0);
+			Sound::GetInstance()->Play(eSound::sound_HighSword);
 			break;
 		case ALADDIN_SITTING_ATTACKING:
 			currentState = state;
 			animations[state]->SetCurrentFrame(0);
+			Sound::GetInstance()->Play(eSound::sound_HighSword);
 			break;
 		case ALADDIN_STAYING_COMBO_ATTACKING:
 			currentState = state;
 			animations[state]->SetCurrentFrame(0);
+			Sound::GetInstance()->Play(eSound::sound_HighSword);
 			break;
 		case ALADDIN_RUNING_ATTACKING:
 			currentState = state;
 			animations[state]->SetCurrentFrame(0);
+			Sound::GetInstance()->Play(eSound::sound_HighSword);
 			break;
 		case ALADDIN_JUMPING_ATTACKING:
 			currentState = state;
 			animations[state]->SetCurrentFrame(0);
+			Sound::GetInstance()->Play(eSound::sound_HighSword);
 			break;
 		case ALADDIN_STAYING_ATTACKING_BY_APPLE:
 			currentState = state;
@@ -965,6 +988,7 @@ void Aladdin::SetCurrentState(int state)
 				a = new AppleOfAladdin(x, y, nx);
 			apples.push_back(a);
 			applesCount--;
+			Sound::GetInstance()->Play(eSound::sound_ThrowApple);
 			break;
 		case ALADDIN_SITTING_ATACKING_BY_APPLE:
 			currentState = state;
@@ -977,6 +1001,7 @@ void Aladdin::SetCurrentState(int state)
 				a = new AppleOfAladdin(x, y, nx);
 			apples.push_back(a);
 			applesCount--;
+			Sound::GetInstance()->Play(eSound::sound_ThrowApple);
 			break;
 		case ALADDIN_RUNNING_ATTACKING_BY_APPLE:
 			currentState = state;
@@ -989,10 +1014,12 @@ void Aladdin::SetCurrentState(int state)
 				a = new AppleOfAladdin(x, y, nx);
 			apples.push_back(a);
 			applesCount--;
+			Sound::GetInstance()->Play(eSound::sound_ThrowApple);
 			break;
 		case ALADDIN_JUMPING_ATTACKING_BY_APPLE:
 			currentState = state;
 			animations[state]->SetCurrentFrame(0);
+			if (applesCount <= 0)
 			if (applesCount <= 0)
 				break;
 			if (nx == 1)
@@ -1001,6 +1028,7 @@ void Aladdin::SetCurrentState(int state)
 				a = new AppleOfAladdin(x, y, nx);
 			apples.push_back(a);
 			applesCount--;
+			Sound::GetInstance()->Play(eSound::sound_ThrowApple);
 			break;
 		case ALADDIN_DAMAGE:
 			if (isInjured)
@@ -1010,6 +1038,7 @@ void Aladdin::SetCurrentState(int state)
 			currentState = state;
 			animations[state]->SetCurrentFrame(0);
 			health--;
+			Sound::GetInstance()->Play(eSound::sound_AladdinHurt);
 			break;
 		case ALADDIN_FALLING:
 
@@ -1041,6 +1070,7 @@ void Aladdin::SetCurrentState(int state)
 		case ALADDIN_CLIMBING_ATTACKING:
 			animations[state]->SetCurrentFrame(0);
 			currentState = state;
+			Sound::GetInstance()->Play(eSound::sound_HighSword);
 			break;
 		case ALADDIN_CLIMBING_ATTACKING_BY_APPLE:
 			AppleOfAladdin * a;
@@ -1051,6 +1081,7 @@ void Aladdin::SetCurrentState(int state)
 			apples.push_back(a);
 			animations[state]->SetCurrentFrame(0);
 			currentState = state;
+			Sound::GetInstance()->Play(eSound::sound_AladdinHurt);
 			break;
 		}
 	}
@@ -1400,28 +1431,33 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 				{
 					applesCount++;
 					list_Item[i]->SetCurrentState(APPLE_STATE_2);
+					Sound::GetInstance()->Play(eSound::sound_AppleSplat);
 				}
 				if (list_Item[i]->GetType() == oType::REDJEWEL)
 				{
 					redJewelCount++;
 					score += 150;
 					list_Item[i]->SetCurrentState(REDJEWEL_STATE_2);
+					Sound::GetInstance()->Play(eSound::sound_GemCollect);
 				}
 				if (list_Item[i]->GetType() == oType::GENIE)
 				{
 					score += 250;
 					list_Item[i]->SetCurrentState(GENIE_STATE_2);
+					Sound::GetInstance()->Play(eSound::sound_Wow);
 				}
 				if (list_Item[i]->GetType() == oType::HEART)
 				{
 					score += 150;
 					health += 1;
 					list_Item[i]->SetCurrentState(HEART_STATE_2);
+					Sound::GetInstance()->Play(eSound::sound_ExtraHealth);
 				}
 				if (list_Item[i]->GetType() == oType::RESTARTPOINT)
 				{
 					list_Item[i]->SetCurrentState(RESTARTPOINT_STATE_2);
 					isCollsionWithRestartPoint = true;
+					Sound::GetInstance()->Play(eSound::sound_ContinuePoint);
 				}
 			}
 		}
@@ -1434,28 +1470,33 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 			{
 				applesCount++;
 				coEvents[i]->obj->SetCurrentState(APPLE_STATE_2);
+				Sound::GetInstance()->Play(eSound::sound_AppleSplat);
 			}
 			if (coEvents[i]->obj->GetType() == oType::REDJEWEL)
 			{
 				redJewelCount++;
 				score += 150;
 				coEvents[i]->obj->SetCurrentState(REDJEWEL_STATE_2);
+				Sound::GetInstance()->Play(eSound::sound_GemCollect);
 			}
 			if (coEvents[i]->obj->GetType() == oType::GENIE)
 			{
 				score += 250;
 				coEvents[i]->obj->SetCurrentState(GENIE_STATE_2);
+				Sound::GetInstance()->Play(eSound::sound_Wow);
 			}
 			if (coEvents[i]->obj->GetType() == oType::HEART)
 			{
 				score += 150;
 				health += 1;
 				coEvents[i]->obj->SetCurrentState(HEART_STATE_2);
+				Sound::GetInstance()->Play(eSound::sound_ExtraHealth);
 			}
 			if (coEvents[i]->obj->GetType() == oType::RESTARTPOINT)
 			{
 				coEvents[i]->obj->SetCurrentState(RESTARTPOINT_STATE_2);
 				isCollsionWithRestartPoint = true;
+				Sound::GetInstance()->Play(eSound::sound_ContinuePoint);
 			}
 		}
 	}
