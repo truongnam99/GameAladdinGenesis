@@ -88,7 +88,10 @@ enum oType
 	ENEMYTHIN = 14,
 	ENEMYSKELETON = 15,
 	ENEMYBAT = 16,
-	SKELETON = 17
+	SKELETON = 17,
+	JAFAR = 18,
+	FLAME = 19,
+	MAGIC = 20
 };
 
 struct Point 

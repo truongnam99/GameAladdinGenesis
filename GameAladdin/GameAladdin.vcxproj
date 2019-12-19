@@ -144,6 +144,7 @@
     <ClCompile Include="EnemyFat.cpp" />
     <ClCompile Include="EnemySkeleton.cpp" />
     <ClCompile Include="EnemyThin.cpp" />
+    <ClCompile Include="Flame.cpp" />
     <ClCompile Include="Foreground.cpp" />
     <ClCompile Include="ForegroundObject.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -151,6 +152,8 @@
     <ClCompile Include="Genie.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Heart.cpp" />
+    <ClCompile Include="Jafar.cpp" />
+    <ClCompile Include="Magic.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MovingBrick.cpp" />
@@ -186,6 +189,7 @@
     <ClInclude Include="EnemyFat.h" />
     <ClInclude Include="EnemySkeleton.h" />
     <ClInclude Include="EnemyThin.h" />
+    <ClInclude Include="Flame.h" />
     <ClInclude Include="Foreground.h" />
     <ClInclude Include="ForegroundObject.h" />
     <ClInclude Include="Game.h" />
@@ -193,6 +197,8 @@
     <ClInclude Include="Genie.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Heart.h" />
+    <ClInclude Include="Jafar.h" />
+    <ClInclude Include="Magic.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MovingBrick.h" />
     <ClInclude Include="PointReset.h" />

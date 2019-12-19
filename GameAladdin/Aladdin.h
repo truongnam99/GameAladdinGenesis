@@ -89,6 +89,7 @@ private:
 	int heart;
 	vector<AppleOfAladdin*> apples; // danh sách apple được ném ra: để xét va chạm
 	AppleOfAladdin * a;
+	float gravity;
 public:
 	bool isCollsionWithRestartPoint;
 	bool isAttacking, isJumping, isClimbing, isIdle, isRunning, isInjured, isSitting; 
@@ -96,6 +97,7 @@ public:
 	Aladdin();
 	~Aladdin();
 	DWORD GetTime() { return stime; }
+	void SetGravity(float gravity) { this->gravity = gravity; };
 	void SetTime(DWORD stime) { this->stime = stime; }
 
 	void LoadResource();

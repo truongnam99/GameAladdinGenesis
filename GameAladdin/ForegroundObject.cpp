@@ -7,14 +7,14 @@ void ForegroundObject::Render()
 	Sprites::GetInstance()->Get(idSprite)->Draw(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
 }
 
-void ForegroundObject::RenderWithEffect(float a, float b)
+void ForegroundObject::RenderWithEffect(float a, float b, float speed)
 {
-	Sprites::GetInstance()->Get(idSprite)->Draw(a - Camera::GetInstance()->GetXCam()*1.3, b - Camera::GetInstance()->GetYCam()*1.3);
+	Sprites::GetInstance()->Get(idSprite)->Draw(a - Camera::GetInstance()->GetXCam()*speed, b - Camera::GetInstance()->GetYCam()*speed);
 }
 
-void ForegroundObject::RenderWithEffect()
+void ForegroundObject::RenderWithEffect(float speed)
 {
-	Sprites::GetInstance()->Get(idSprite)->Draw(x - Camera::GetInstance()->GetXCam()*1.3, y - Camera::GetInstance()->GetYCam()*1.3);
+	Sprites::GetInstance()->Get(idSprite)->Draw(x - Camera::GetInstance()->GetXCam()*speed, y - Camera::GetInstance()->GetYCam()*speed);
 }
 
 ForegroundObject::ForegroundObject(int idSprite, float x, float y, int width, int height)

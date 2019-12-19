@@ -40,6 +40,13 @@ void SceneGame::KeyState(BYTE * state)
 					{
 						aladdin->isJumping = true;
 						aladdin->SetCurrentState(ALADDIN_JUMPING_FOWARD);
+						if (level == 2)
+						{
+
+							aladdin->GetSpeed(vx, vy);
+							aladdin->SetSpeed(vx*2, vy);
+
+						}
 					}
 		}
 	}
@@ -164,7 +171,6 @@ void SceneGame::OnKeyUp(int KeyCode)
 
 void SceneGame::LoadResources()
 {
-	
 	textures->LoadResources();
 	map->SetMap(MAP1);
 	map->LoadMap();
@@ -198,190 +204,256 @@ void SceneGame::LoadResources()
 	
 	foregroundx = new ForegroundObject(51064, 0, 0, 519, 256);
 
-	Sound::GetInstance()->Play(eSound::sound_Story);
+	SetLevel(2);
+	//Sound::GetInstance()->Play(eSound::sound_Story);
 }
 
 void SceneGame::Update(DWORD dt)
 {
-	grid->Update(dt);
-	grid->GetObjects(obj);
-	
-	for (auto x : obj)
-	{
-		if (x->GetType() == ENEMYBAT)
-		{
-			EnemyBat * e = (EnemyBat *)x;
-			float ax, ay;
-			aladdin->GetPosition(ax, ay);
-			e->aladdinPosition.x = ax;
-			e->aladdinPosition.y = ay;
-		}
-		if (x->GetType() == ENEMYSKELETON)
-		{
-			EnemySkeleton * e = (EnemySkeleton *)x;
-			float ax, ay;
-			float ex, ey;
-			aladdin->GetPosition(ax, ay);
-			e->GetPosition(ex, ey);
-			e->aladdinPoint.x = ax;
-			e->aladdinPoint.y = ay;
-			if (ax < ex)
-				e->SetNx(-1);
-			else
-				e->SetNx(1);
-		}
-		x->Update(dt, &obj);
-		if (x->GetType() == ENEMYFAT)
-		{
-			EnemyFat * e = (EnemyFat *)x;
-			float x, y;
-			aladdin->GetPosition(x, y);
-			if (x < e->LeftMargin)
-				e->SetNx(-1);
-			if (x > e->RightMargin)
-				e->SetNx(1);
-		}
-		if (x->GetType() == ENEMYTHIN)
-		{
-			EnemyThin * e = (EnemyThin *)x;
-			float ax, ay;
-			aladdin->GetPosition(ax, ay);
-			if (ax < e->LeftMargin)
-				e->SetNx(-1);
-			if (ax > e->RightMargin)
-				e->SetNx(1);
-		}
-		
-	}
-	// update aladdin
-	aladdin->Update(dt, &obj);
 	float x;
 	float y;
-	aladdin->GetPosition(x, y);
 
-	// tạo hiệu ứng chuyển động của cam
-	if (aladdin->GetCurrentState() == ALADDIN_IDLE_LOOK_UP)
+	switch (level)
 	{
-		if (dyc > -80)
-			dyc-=4;
-	}
-	else if (aladdin->isSitting)
-	{
-		if (dyc < 80)
-			dyc+=4;
-	}
-	else
-		if (dyc > 0)
-			dyc-=4;
-		else if (dyc < 0)
-			dyc+=4;
-	camera->SetPosition(x - 140, y - 110 + dyc);
+	case 2:
+		for (auto x : obj)
+		{
+			x->Update(dt);
+		}
+		aladdin->Update(dt, &obj);
+		aladdin->GetPosition(x, y);
 
-	if (aladdin->isCollsionWithRestartPoint)
-	{
-		if (pointReset == NULL)
-			pointReset = new PointReset();
+		camera->SetPosition(x - 140, y);
+		break;
+	case 1:
+		grid->Update(dt);
+		grid->GetObjects(obj);
 
-		vector<LPGAMEOBJECT> gridObject;
-		grid->GetAllObject(gridObject);
-		pointReset->SetPointReset(gridObject, aladdin);
+		for (auto x : obj)
+		{
+			if (x->GetType() == ENEMYBAT)
+			{
+				EnemyBat * e = (EnemyBat *)x;
+				float ax, ay;
+				aladdin->GetPosition(ax, ay);
+				e->aladdinPosition.x = ax;
+				e->aladdinPosition.y = ay;
+			}
+			if (x->GetType() == ENEMYSKELETON)
+			{
+				EnemySkeleton * e = (EnemySkeleton *)x;
+				float ax, ay;
+				float ex, ey;
+				aladdin->GetPosition(ax, ay);
+				e->GetPosition(ex, ey);
+				e->aladdinPoint.x = ax;
+				e->aladdinPoint.y = ay;
+				if (ax < ex)
+					e->SetNx(-1);
+				else
+					e->SetNx(1);
+			}
+			x->Update(dt, &obj);
+			if (x->GetType() == ENEMYFAT)
+			{
+				EnemyFat * e = (EnemyFat *)x;
+				float x, y;
+				aladdin->GetPosition(x, y);
+				if (x < e->LeftMargin)
+					e->SetNx(-1);
+				if (x > e->RightMargin)
+					e->SetNx(1);
+			}
+			if (x->GetType() == ENEMYTHIN)
+			{
+				EnemyThin * e = (EnemyThin *)x;
+				float ax, ay;
+				aladdin->GetPosition(ax, ay);
+				if (ax < e->LeftMargin)
+					e->SetNx(-1);
+				if (ax > e->RightMargin)
+					e->SetNx(1);
+			}
 
-		aladdin->isCollsionWithRestartPoint = false;
-	}
-	 
-	if (aladdin->GetHealth() <= 0)
-	{
-		aladdin->SetHeart(aladdin->GetHeart() - 1);
+		}
+		// update aladdin
+		aladdin->Update(dt, &obj);
 		
-		if (aladdin->GetHeart() <= 0)
+		aladdin->GetPosition(x, y);
+
+		// tạo hiệu ứng chuyển động của cam
+		if (aladdin->GetCurrentState() == ALADDIN_IDLE_LOOK_UP)
 		{
-			// isGameOver = true;
-			Aladdin * a = aladdin;
-			delete a;
-			aladdin = new Aladdin();
-			aladdin->LoadResource();
-			grid->ResetState();
-		} 
-		else if (pointReset == NULL)
+			if (dyc > -80)
+				dyc -= 4;
+		}
+		else if (aladdin->isSitting)
 		{
-			Aladdin * a = aladdin;
-			delete a;
-			aladdin = new Aladdin();
-			aladdin->LoadResource();
-			grid->ResetState();
-			aladdin->SetHealth(9);
-			
+			if (dyc < 80)
+				dyc += 4;
 		}
 		else
+			if (dyc > 0)
+				dyc -= 4;
+			else if (dyc < 0)
+				dyc += 4;
+		camera->SetPosition(x - 140, y - 110 + dyc);
+
+		if (aladdin->isCollsionWithRestartPoint)
 		{
+			if (pointReset == NULL)
+				pointReset = new PointReset();
+
 			vector<LPGAMEOBJECT> gridObject;
 			grid->GetAllObject(gridObject);
-			pointReset->ResetState(gridObject, aladdin);
-			aladdin->SetHealth(9);
+			pointReset->SetPointReset(gridObject, aladdin);
+
+			aladdin->isCollsionWithRestartPoint = false;
 		}
+
+		if (aladdin->GetHealth() <= 0)
+		{
+			aladdin->SetHeart(aladdin->GetHeart() - 1);
+
+			if (aladdin->GetHeart() <= 0)
+			{
+				// isGameOver = true;
+				Aladdin * a = aladdin;
+				delete a;
+				aladdin = new Aladdin();
+				aladdin->LoadResource();
+				grid->ResetState();
+			}
+			else if (pointReset == NULL)
+			{
+				Aladdin * a = aladdin;
+				delete a;
+				aladdin = new Aladdin();
+				aladdin->LoadResource();
+				grid->ResetState();
+				aladdin->SetHealth(9);
+
+			}
+			else
+			{
+				vector<LPGAMEOBJECT> gridObject;
+				grid->GetAllObject(gridObject);
+				pointReset->ResetState(gridObject, aladdin);
+				aladdin->SetHealth(9);
+			}
+		}
+		break;
 	}
+	
 	Board::GetInstance()->Update(dt, aladdin->GetHealth(), aladdin->GetHeart(), aladdin->GetScore(), aladdin->GetRedJewelCount(), aladdin->GetApplesCount());
 }
 
 void SceneGame::Render()
 {
-	map->DrawMap();
-	
-	// vẽ object trong grid
-	for (int i = 0; i < obj.size(); i++)
+	int oCount;
+	float a;
+	float b;
+	int w;
+	int h;
+	switch (level)
 	{
-		obj[i]->Render();
+	case 1:
+		map->DrawMap();
+
+		// vẽ object trong grid
+		for (int i = 0; i < obj.size(); i++)
+		{
+			obj[i]->Render();
+		}
+		aladdin->Render();
+
+		oCount = 0;
+
+		// render lop tren cung
+		for (int i = 0; i < foreground->list_foregroundObject.size(); i++)
+			foreground->list_foregroundObject[i]->Render();
+
+		if (foregroundx->x > Camera::GetInstance()->GetXCam() + Camera::GetInstance()->GetWidth())
+			foregroundx->x -= foregroundx->width;
+		if (foregroundx->x + foregroundx->width < Camera::GetInstance()->GetXCam())
+			foregroundx->x += foregroundx->width;
+		if (foregroundx->y > Camera::GetInstance()->GetYCam() + Camera::GetInstance()->GetHeight())
+			foregroundx->y -= foregroundx->height;
+		if (foregroundx->y + foregroundx->height < Camera::GetInstance()->GetYCam())
+			foregroundx->y += foregroundx->height;
+
+		a = foregroundx->x;
+		b = foregroundx->y;
+		w = foregroundx->width;
+		h = foregroundx->height;
+
+		foregroundx->RenderWithEffect(a, b - h);
+		foregroundx->RenderWithEffect();
+		foregroundx->RenderWithEffect(a, b + h);
+		foregroundx->RenderWithEffect(a, b + 2 * h);
+
+		foregroundx->RenderWithEffect(a + w, b - h);
+		foregroundx->RenderWithEffect(a + w, b);
+		foregroundx->RenderWithEffect(a + w, b + h);
+		foregroundx->RenderWithEffect(a + w, b + 2 * h);
+
+		foregroundx->RenderWithEffect(a - w, b - h);
+		foregroundx->RenderWithEffect(a - w, b);
+		foregroundx->RenderWithEffect(a - w, b + h);
+		foregroundx->RenderWithEffect(a - w, b + 2 * h);
+		Board::GetInstance()->Render();
+		break;
+	case 2:
+		map->DrawMap();
+		for (int i = 0; i < obj.size(); i++)
+		{
+			obj[i]->Render();
+		}
+		aladdin->Render();
+
+		Board::GetInstance()->Render();
+		break;
 	}
-	aladdin->Render();
-
-	int oCount=0;
-	//for (int i = 0; i < grid->cellShowing.size(); i++)
-	//{
-	//	int id = grid->cellShowing[i];
-	//	int oC = grid->GetCell(id)->object.size();
-	//	for (int j = 0; j < oC; j++)
-	//	{
-	//		grid->GetCell(id)->object[j]->RenderBoundingBox(); // Vẽ renderBouding để debug
-	//	}
-	//}
-
-	// render lop tren cung
-	for (int i = 0; i < foreground->list_foregroundObject.size(); i++)
-		foreground->list_foregroundObject[i]->Render();
 	
-	if (foregroundx->x > Camera::GetInstance()->GetXCam() + Camera::GetInstance()->GetWidth())
-		foregroundx->x -= foregroundx->width;
-	if (foregroundx->x + foregroundx->width < Camera::GetInstance()->GetXCam())
-		foregroundx->x += foregroundx->width;
-	if (foregroundx->y > Camera::GetInstance()->GetYCam() + Camera::GetInstance()->GetHeight())
-		foregroundx->y -= foregroundx->height;
-	if (foregroundx->y + foregroundx->height < Camera::GetInstance()->GetYCam())
-		foregroundx->y += foregroundx->height;
+}
 
-	float a = foregroundx->x;
-	float b = foregroundx->y;
-	int w = foregroundx->width;
-	int h = foregroundx->height;
-
-	foregroundx->RenderWithEffect(a, b- h);
-	foregroundx->RenderWithEffect();
-	foregroundx->RenderWithEffect(a, b + h);
-	foregroundx->RenderWithEffect(a, b + 2*h);
-
-	foregroundx->RenderWithEffect(a+w, b - h);
-	foregroundx->RenderWithEffect(a+w, b);
-	foregroundx->RenderWithEffect(a+w, b + h);
-	foregroundx->RenderWithEffect(a + w, b + 2*h);
-
-	foregroundx->RenderWithEffect(a - w, b - h);
-	foregroundx->RenderWithEffect(a-w, b);
-	foregroundx->RenderWithEffect(a-w, b + h);
-	foregroundx->RenderWithEffect(a - w, b + 2*h);
-	Board::GetInstance()->Render();
+void SceneGame::SetLevel(int level)
+{
+	obj.clear();
+	Sprites * sprites = Sprites::GetInstance();
+	GameObject * o;
+	switch (level)
+	{
+	case 1:
+		this->level = 1;
+		break;
+	case 2:
+		this->level = 2;
+		map->SetMap(MAP2);
+		map->LoadMap();
+		
+		camera->SetMap(map->GetMapWidth(), map->GetMapHeight());
+		camera->SetPosition(0.0f, 0.0f);
+		o = new Brick(3, 260, 300, 105, 16, oType::BRICK);
+		obj.push_back(o);
+		o = new Brick(4, 470, 300, 105, 16, oType::BRICK);
+		obj.push_back(o);
+		o = new Brick(0, 0, 360, 832, 16, oType::BRICK);
+		obj.push_back(o);
+		o = new Wall(1, 0, 0, 4, 448, oType::WALL);
+		obj.push_back(o);
+		o = new Wall(2, 790, 0, 4, 448, oType::WALL);
+		obj.push_back(o);
+		aladdin->SetPosition(20, 250);
+		break;
+	default:
+		break;
+	}
 }
 
 SceneGame::SceneGame()
 {
+	level = 1;
 	textures = Textures::GetInstance();
 	camera = Camera::GetInstance();
 	map = Map::GetInstance();

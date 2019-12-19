@@ -21,7 +21,6 @@ private:
 	int StateCurrent;
 	PointReset * pointReset;
 
-	bool isGameOver;
 	DWORD EndTime;
 	float remainTime;
 	int count;
@@ -29,9 +28,12 @@ private:
 	int dyc;// biến dùng tạo hiệu ứng chuyển động cho cam
 
 	vector<LPGAMEOBJECT> obj;
+	vector<LPGAMEOBJECT> *mapObj;
 	Foreground * foreground;
 	ForegroundObject * foregroundx;
+	int level;
 public:
+	bool isGameOver;
 	void KeyState(BYTE *state); // Bắt các sự kiện phím để xử lý
 	void OnKeyDown(int KeyCode); // 
 	void OnKeyUp(int KeyCode);
@@ -39,6 +41,8 @@ public:
 	void LoadResources();
 	void Update(DWORD dt);
 	void Render();
+
+	void SetLevel(int level);
 
 	SceneGame();
 	~SceneGame();

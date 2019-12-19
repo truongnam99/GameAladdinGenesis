@@ -1,7 +1,6 @@
 #ifndef __SCENE_H__
 #define __SCENE_H__
 
-
 #include "define.h"
 
 class Scene
@@ -14,7 +13,5 @@ public:
 	virtual void LoadResources() = 0;
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0;
-
 };
-
 #endif

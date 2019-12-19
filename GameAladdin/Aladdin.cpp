@@ -28,6 +28,7 @@ Aladdin::Aladdin()
 	redJewelCount = 0;
 	score = 0;
 	heart = 3;
+	gravity = ALADDIN_GRAVITY;
 }
 
 
@@ -749,7 +750,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOut((wchar_t*)L"health = %d\n", redJewelCount);
 	stime += dt;
 	if (!isClimbing)
-		vy += ALADDIN_GRAVITY * dt;
+		vy += gravity * dt;
 	GameObject::Update(dt);
 	dxt = 0;
 

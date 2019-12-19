@@ -72,6 +72,7 @@ void Textures::LoadResources()
 	Add(ID_TEX_SKELETON, (wchar_t*)L"Resources\\textures\\skeleton.png", D3DCOLOR_XRGB(255, 0, 255));
 	Add(ID_TEX_BOSS, (wchar_t*)L"Resources\\textures\\boss.png", D3DCOLOR_XRGB(186, 254, 202));
 	Add(ID_TEX_BAT, (wchar_t*)L"Resources\\textures\\bat.png", D3DCOLOR_XRGB(255, 0, 255));
+	Add(MAP2, (wchar_t*)L"Resources\\map\\map2.png", D3DCOLOR_XRGB(255, 255, 255));
 }
 
 LPDIRECT3DTEXTURE9 Textures::Get(int id)

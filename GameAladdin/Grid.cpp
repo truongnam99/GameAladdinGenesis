@@ -28,7 +28,7 @@ void Grid::AddObject(GameObject * gobj)
 	int ce = c2 % columns; // column end
 	int rs = c1 / columns; // row start
 	int re = c2 / columns; // row end
-	
+
 	for (int i = rs; i <= re; i++)
 	{
 		for (int j = cs; j <= ce; j++)
@@ -40,7 +40,8 @@ void Grid::AddObject(GameObject * gobj)
 
 Grid::Grid()
 {
-
+	rows = 0;
+	columns = 0;
 }
 
 Grid * Grid::GetInstance()
@@ -57,9 +58,16 @@ Cell * Grid::GetCell(int id)
 
 void Grid::LoadGrid(int idMap)
 {
+	// delete dữ liệu grid cũ nếu có
+	for (int i = 0; i < columns * rows; i++)
+	{
+		delete grid[i];
+	}
+	grid.clear();
+
 	string path;
 	switch (idMap) {
-	case MAP1: 
+	case MAP1:
 		path = "Resources/grid/grid1.txt";
 		break;
 	case MAP2:
@@ -86,7 +94,7 @@ void Grid::LoadGrid(int idMap)
 		Cell * cell = new Cell(id, x, y);
 		grid[id] = cell;
 	}
-	
+
 	int type;
 	int width;
 	int height;
@@ -168,7 +176,7 @@ void Grid::Update(DWORD dt)
 	int c1 = GetIdCellContainPoint(a);
 	int c2 = GetIdCellContainPoint(b);
 
-	if (c1 == -1||c2 == -1) {
+	if (c1 == -1 || c2 == -1) {
 		//OutputDebugString(L"Grid:Camera nam ngoai grid\n");
 		return;
 	}
@@ -183,7 +191,7 @@ void Grid::Update(DWORD dt)
 
 	for (int i = rs; i <= re; i++)
 	{
-		for (int j = cs; j <= ce; j++) 
+		for (int j = cs; j <= ce; j++)
 		{
 			cellShowing.push_back(i*columns + j);
 		}
@@ -215,11 +223,11 @@ void Grid::GetObjects(vector<LPGAMEOBJECT>& obj)
 		for (int j = 0; j < sCell; j++)
 		{
 			if (sCell > 0)
-			if (listObjTemp[c->object[j]->GetId()] == nullptr) 
-			{
-				listObjTemp[c->object[j]->GetId()] = c->object[j];
-				obj.push_back(c->object[j]);
-			}
+				if (listObjTemp[c->object[j]->GetId()] == nullptr)
+				{
+					listObjTemp[c->object[j]->GetId()] = c->object[j];
+					obj.push_back(c->object[j]);
+				}
 		}
 	}
 }
@@ -236,7 +244,7 @@ void Grid::GetAllObject(vector<LPGAMEOBJECT>& obj)
 	}
 }
 
-void Grid::ResetState() 
+void Grid::ResetState()
 {
 	for (int i = 0; i < rows * columns; i++)
 	{
@@ -250,7 +258,7 @@ void Grid::ResetState()
 
 Grid::~Grid()
 {
-	for (int i = 0; i < columns * rows; i++) 
+	for (int i = 0; i < columns * rows; i++)
 	{
 		delete grid[i];
 	}

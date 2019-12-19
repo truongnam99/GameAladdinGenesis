@@ -1,9 +1,5 @@
 #include "Cell.h"
 
-
-
-
-
 Cell::Cell(int id, int x, int y, int w, int h)
 {
 	this->x = x;

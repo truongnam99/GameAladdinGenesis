@@ -159,6 +159,15 @@
     <ClCompile Include="dxutil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Jafar.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Magic.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Flame.cpp">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -280,6 +289,15 @@
     </ClInclude>
     <ClInclude Include="dxutil.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Jafar.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Magic.h">
+      <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Flame.h">
+      <Filter>GameObjects\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -16,9 +16,10 @@ void Map::LoadMap()
 		sprite->SetTexture(Textures::GetInstance()->Get(MAP1));
 		break;
 	case MAP2:
+		this->idMap = idMap;
 		ReadMapTXT((char*)"Resources/map/map2.txt");
-		sprite = Sprites::GetInstance()->Get(MAP1); 
 		sprite->SetTexture(Textures::GetInstance()->Get(MAP2));
+		this->tileSize = 32;
 		break;
 	default:
 		break;
@@ -84,9 +85,9 @@ void Map::DrawMap()
 	int frame;
 	int rTile;
 	int cTile;
-	for (; iTile < nTile; iTile++)
+	for (; iTile <= nTile; iTile++)
 	{
-		for (jTile = jT; jTile < kTile; jTile++)
+		for (jTile = jT; jTile <= kTile+1; jTile++)
 		{
 			frame = TileMap[iTile][jTile];
 			rTile = frame / 50;
