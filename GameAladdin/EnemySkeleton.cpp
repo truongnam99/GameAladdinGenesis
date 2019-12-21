@@ -79,7 +79,16 @@ void EnemySkeleton::SetCurrentState(int currentState)
 void EnemySkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isDeath)
+	{
+		for (int i = 0; i < skeletons.size(); i++)
+		{
+			Skeleton * ske = skeletons[i];
+			skeletons.erase(skeletons.begin() + i);
+			delete ske;
+		}
 		return;
+	}
+		
 	for (int i = 0; i < skeletons.size(); i++)
 	{
 		skeletons[i]->Update(dt);

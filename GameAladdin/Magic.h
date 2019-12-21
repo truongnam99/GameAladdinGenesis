@@ -10,6 +10,7 @@ class Magic: public GameObject
 {
 private:
 	float v;
+	DWORD dtime;
 public:
 	bool isDeath;
 	Point Goal;

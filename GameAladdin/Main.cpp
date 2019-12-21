@@ -6,6 +6,9 @@
 #include "Map.h"
 
 #include "SceneGame.h"
+#include "SceneLevelCompleted.h"
+#include "SceneDealth.h"
+#include "SceneIntro.h"
 
 Game *game;
 SceneManager * sceneManager;
@@ -144,8 +147,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game->Init(hWnd);
 
 	sceneManager = SceneManager::GetInstance();
-
-	sceneManager->SetScene(new SceneGame());
+	sceneManager->sceneGame = new SceneGame();
+	sceneManager->SetScene(new SceneIntro());
+	
+	// sceneManager->SetScene(new SceneGame());
 
 
 	game->InitKeyboard();

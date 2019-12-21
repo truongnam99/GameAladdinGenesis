@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <ctime>
 #include "Sound.h"
+#include "SceneDealth.h"
+#include "SceneLevelCompleted.h"
 void SceneGame::KeyState(BYTE * state)
 {
 	float vx;
@@ -161,6 +163,10 @@ void SceneGame::OnKeyDown(int KeyCode)
 		break;
 	case DIK_Q:
 		aladdin->SetHealth(9);
+		break;
+	case DIK_W:
+		aladdin->SetApplesCount(15);
+		break;
 	}
 
 }
@@ -201,11 +207,9 @@ void SceneGame::LoadResources()
 	foreground->list_foregroundObject.push_back(new ForegroundObject(51058, 817, 377));
 	foreground->list_foregroundObject.push_back(new ForegroundObject(51059, 1168, 920));
 	foreground->list_foregroundObject.push_back(new ForegroundObject(51060, 2192, 65));
-	
+	//SetLevel(2);
 	foregroundx = new ForegroundObject(51064, 0, 0, 519, 256);
-
-	SetLevel(2);
-	//Sound::GetInstance()->Play(eSound::sound_Story);
+	// Sound::GetInstance()->Play(eSound::sound_Story);
 }
 
 void SceneGame::Update(DWORD dt)
@@ -216,13 +220,65 @@ void SceneGame::Update(DWORD dt)
 	switch (level)
 	{
 	case 2:
+		if (aladdin->GetHealth() < 0)
+		{
+			aladdin->SetHeart(aladdin->GetHeart()-1);
+			if (aladdin->GetHeart() < 0)
+			{
+				SetLevel(1);
+				SceneManager::GetInstance()->SetScene(new SceneDealth());
+				return;
+			}
+			else
+			{
+				aladdin->SetHealth(9);
+				aladdin->SetPosition(20, 250);
+			}
+		}
+
 		for (auto x : obj)
 		{
-			x->Update(dt);
-		}
-		aladdin->Update(dt, &obj);
-		aladdin->GetPosition(x, y);
+			if (x->GetType() == JAFAR)
+			{
+				Jafar * e = (Jafar *)x;
+				float ax, ay;
+				aladdin->GetPosition(ax, ay);
+				e->aladdinPoint.x = ax;
+				e->aladdinPoint.y = ay;
 
+				if (e->GetHealth() <= 0)
+				{
+					SetLevel(1);
+					SceneManager::GetInstance()->SetScene(new SceneLevelCompleted());
+					return;
+				}
+				float ex, ey;
+				e->GetPosition(ex, ey);
+
+				if (ax < ex)
+				{
+					e->SetNx(-1);
+					obj[9]->SetCurrentState(1);
+					obj[10]->SetCurrentState(1);
+					obj[11]->SetCurrentState(1);
+					obj[12]->SetCurrentState(1);
+
+				}
+				else
+				{
+					e->SetNx(1);
+					obj[5]->SetCurrentState(1);
+					obj[6]->SetCurrentState(1);
+					obj[7]->SetCurrentState(1);
+					obj[8]->SetCurrentState(1);
+				}
+			}
+			x->Update(dt);
+
+		}
+		aladdin->GetPosition(x, y);
+		aladdin->Update(dt, &obj);
+		
 		camera->SetPosition(x - 140, y);
 		break;
 	case 1:
@@ -282,6 +338,13 @@ void SceneGame::Update(DWORD dt)
 		aladdin->GetPosition(x, y);
 
 		// tạo hiệu ứng chuyển động của cam
+		if (aladdin->isCollisionWithNextLevelPoint)
+		{
+			SetLevel(2);
+			SceneManager::GetInstance()->SetScene(new SceneLevelCompleted());
+			aladdin->isCollisionWithNextLevelPoint = false;
+			return;
+		}
 		if (aladdin->GetCurrentState() == ALADDIN_IDLE_LOOK_UP)
 		{
 			if (dyc > -80)
@@ -323,6 +386,8 @@ void SceneGame::Update(DWORD dt)
 				aladdin = new Aladdin();
 				aladdin->LoadResource();
 				grid->ResetState();
+				SceneManager::GetInstance()->SetScene(new SceneDealth());
+				return;
 			}
 			else if (pointReset == NULL)
 			{
@@ -410,7 +475,7 @@ void SceneGame::Render()
 			obj[i]->Render();
 		}
 		aladdin->Render();
-
+		aladdin->SetGravity(0.0012);
 		Board::GetInstance()->Render();
 		break;
 	}
@@ -426,6 +491,13 @@ void SceneGame::SetLevel(int level)
 	{
 	case 1:
 		this->level = 1;
+		aladdin->SetHealth(9);
+		aladdin->SetApplesCount(15);
+		aladdin->SetHeart(3);
+		aladdin->SetScore(0);
+		aladdin->SetPosition(100, 1000);
+		map->SetMap(MAP1);
+		map->LoadMap();
 		break;
 	case 2:
 		this->level = 2;
@@ -445,6 +517,26 @@ void SceneGame::SetLevel(int level)
 		o = new Wall(2, 790, 0, 4, 448, oType::WALL);
 		obj.push_back(o);
 		aladdin->SetPosition(20, 250);
+
+		o = new Apple(5, 296, 265, 10, 10, oType::APPLE);
+		obj.push_back(o);
+		o = new Apple(6, 286, 278, 10, 10, oType::APPLE);
+		obj.push_back(o);
+		o = new Apple(7, 311, 278, 10, 10, oType::APPLE);
+		obj.push_back(o);
+		o = new Apple(8, 296, 288, 10, 10, oType::APPLE);
+		obj.push_back(o);
+
+		o = new Apple(9, 505, 265, 10, 10, oType::APPLE);
+		obj.push_back(o);
+		o = new Apple(10, 496, 278, 10, 10, oType::APPLE);
+		obj.push_back(o);
+		o = new Apple(11, 517, 278, 10, 10, oType::APPLE);
+		obj.push_back(o);
+		o = new Apple(12, 505, 288, 10, 10, oType::APPLE);
+		obj.push_back(o);
+		o = new Jafar();
+		obj.push_back(o);
 		break;
 	default:
 		break;

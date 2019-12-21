@@ -1,6 +1,6 @@
 ﻿#include "Aladdin.h"
 #include "Sound.h"
-
+#include "Jafar.h"
 
 Aladdin::Aladdin()
 {
@@ -23,6 +23,7 @@ Aladdin::Aladdin()
 	isSitting = false;
 	isCollisionWithWall = false;
 	isCollsionWithRestartPoint = false;
+	isCollisionWithNextLevelPoint = false;
 
 	this->applesCount = 15;
 	redJewelCount = 0;
@@ -805,7 +806,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (isAttacking)
 		DebugOut((wchar_t*)L"Dang tan cong");
-	DebugOut((wchar_t*)L"stime = %d\n", stime);
 }
 
 void Aladdin::Render(int flip)
@@ -1397,7 +1397,8 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 	{
 		if (coObject->at(i)->GetType() == oType::APPLE || coObject->at(i)->GetType() == oType::REDJEWEL
 			|| coObject->at(i)->GetType() == oType::GENIE || coObject->at(i)->GetType() == oType::RESTARTPOINT
-			|| coObject->at(i)->GetType() == oType::HEART)
+			|| coObject->at(i)->GetType() == oType::HEART
+			|| coObject->at(i)->GetType() == oType::NEXTLEVELPOINT)
 		{
 			list_Item.push_back(coObject->at(i));
 		}
@@ -1460,6 +1461,10 @@ void Aladdin::CollisionWithItem(vector<LPGAMEOBJECT>* coObject)
 					isCollsionWithRestartPoint = true;
 					Sound::GetInstance()->Play(eSound::sound_ContinuePoint);
 				}
+				if (list_Item[i]->GetType() == oType::NEXTLEVELPOINT)
+				{
+					isCollisionWithNextLevelPoint = true;
+				}
 			}
 		}
 	}
@@ -1521,7 +1526,8 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 			|| coObject->at(i)->GetType() == oType::ENEMYFAT
 			|| coObject->at(i)->GetType() == oType::ENEMYTHIN
 			|| coObject->at(i)->GetType() == oType::ENEMYBAT
-			|| coObject->at(i)->GetType() == oType::ENEMYSKELETON)
+			|| coObject->at(i)->GetType() == oType::ENEMYSKELETON
+			|| coObject->at(i)->GetType() == oType::JAFAR)
 		{
 			list_enemy.push_back(coObject->at(i));
 			if (coObject->at(i)->GetType() == oType::ENEMYSKELETON)
@@ -1530,6 +1536,13 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 				if (eSke->skeletons.size() > 0)
 					for (int j = 0; j < eSke->skeletons.size(); j++)
 						list_enemy.push_back(eSke->skeletons[j]);
+			}
+			if (coObject->at(i)->GetType() == oType::JAFAR)
+			{
+				Jafar * eJafar = (Jafar *)coObject->at(i);
+				if (eJafar->weapon.size() > 0)
+					for (int j = 0; j < eJafar->weapon.size(); j++)
+						list_enemy.push_back(eJafar->weapon[j]);
 			}
 		}
 	}
@@ -1646,6 +1659,19 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 						}
 					}
 				}
+				if (list_enemy[i]->GetType() == oType::MAGIC)
+				{
+					list_enemy[i]->SetCurrentState(2);
+					x -= 2 * list_enemy[i]->GetNx();
+				}
+				if (list_enemy[i]->GetType() == oType::JAFAR)
+				{
+					SetCurrentState(ALADDIN_DAMAGE);
+				}
+				if (list_enemy[i]->GetType() == oType::FLAME)
+				{
+					SetCurrentState(ALADDIN_DAMAGE);
+				}
 			}
 			
 		}
@@ -1709,10 +1735,22 @@ void Aladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)
 					}
 				}
 			}
+			if (coEvents[i]->obj->GetType() == oType::MAGIC)
+			{
+				coEvents[i]->obj->SetCurrentState(2);
+
+				x -= 2 * coEvents[i]->obj->GetNx();
+			}
+			if (coEvents[i]->obj->GetType() == oType::JAFAR)
+			{
+				SetCurrentState(ALADDIN_DAMAGE);
+			}
+			if (coEvents[i]->obj->GetType() == oType::FLAME)
+			{
+				SetCurrentState(ALADDIN_DAMAGE);
+			}
 		}
 	}
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-
-
 }
 

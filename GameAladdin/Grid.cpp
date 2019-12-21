@@ -1,4 +1,5 @@
 ﻿#include "Grid.h"
+#include "NextLevelPoint.h"
 
 Grid * Grid::instance = NULL;
 
@@ -156,6 +157,8 @@ void Grid::LoadGrid(int idMap)
 		case ENEMYSKELETON:
 			gobj = new EnemySkeleton(id, x, y, width, height, ENEMYSKELETON);
 			break;
+		case NEXTLEVELPOINT:
+			gobj = new NextLevelPoint(id, x, y);
 		}
 		AddObject(gobj);
 	}

@@ -1,5 +1,5 @@
 #include "SceneManager.h"
-
+#include "SceneGame.h"
 SceneManager * SceneManager::instance = NULL;
 
 
@@ -23,6 +23,8 @@ void SceneManager::SetScene(Scene * x)
 {
 	Scene * scene_temp = scene;
 	scene = x;
+	if (dynamic_cast<SceneGame *>(scene_temp) != nullptr)
+		return;
 	delete scene_temp;
 }
 
@@ -30,17 +32,20 @@ void SceneManager::SetScene(Scene * x)
 
 void SceneManager::KeyState(BYTE * state)
 {
-	scene->KeyState(state);
+	if (scene != nullptr)
+		scene->KeyState(state);
 }
 
 void SceneManager::OnKeyDown(int KeyCode)
 {
-	scene->OnKeyDown(KeyCode);
+	if (scene != nullptr)
+		scene->OnKeyDown(KeyCode);
 }
 
 void SceneManager::OnKeyUp(int KeyCode)
 {
-	scene->OnKeyUp(KeyCode);
+	if (scene != nullptr)
+		scene->OnKeyUp(KeyCode);
 }
 
 void SceneManager::LoadResources()

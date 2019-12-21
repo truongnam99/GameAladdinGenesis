@@ -12,6 +12,12 @@ void Magic::GetBoundingBox(float & left, float & top, float & right, float & bot
 
 void Magic::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	dtime += dt;
+	if (dt > 3000)
+	{
+		isDeath = true;
+		return;
+	}
 	if (currentState == DRAG_NON_COLLISION)
 	{
 		float d = v * dt;
@@ -23,7 +29,7 @@ void Magic::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (animations[DRAG_COLLISION]->GetCurrentFrame() == animations[DRAG_NON_COLLISION]->GetCountFrame() - 1)
+		if (animations[DRAG_COLLISION]->GetCurrentFrame() == animations[DRAG_COLLISION]->GetCountFrame() - 1)
 			isDeath = true;
 	}
 }
@@ -32,7 +38,8 @@ void Magic::Render(int flip)
 {
 	if (isDeath)
 		return;
-	animations[currentState]->Render(x, y);
+	animations[currentState]->Render(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
+	RenderBoundingBox();
 }
 
 void Magic::SetCurrentState(int currentState)
@@ -57,12 +64,13 @@ Magic::Magic(float x, float y, int width, int height)
 
 	this->x = x;
 	this->y = y;
-	this->width = width;
-	this->height = height;
+	this->width = 30;
+	this->height = 15;
 	this->type = oType::MAGIC;
-	v = 0.015;
+	v = 0.2;
 	currentState = DRAG_NON_COLLISION;
 	isDeath = false;
+	dtime = 0;
 }
 
 

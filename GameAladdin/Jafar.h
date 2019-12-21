@@ -2,6 +2,8 @@
 #define __JAFAR__
 
 #include "GameObject.h"
+#include "Magic.h"
+#include "Flame.h"
 
 #define JAFAR_ATTACK 1
 #define JAFAR_THROW_SNAKE 2
@@ -12,7 +14,7 @@
 
 class Jafar :public GameObject
 {
-private:
+private: 
 	static bool isLoadedSprite;
 	void LoadSprite();
 public:
@@ -28,5 +30,6 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	void Render(int flip = 1);
 	void SetCurrentState(int currentState);
+	int GetHealth() { return health; }
 };
 #endif // !__JAFAR__

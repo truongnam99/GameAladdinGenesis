@@ -102,9 +102,6 @@
     <ClCompile Include="Genie.cpp">
       <Filter>GameObjects\Item</Filter>
     </ClCompile>
-    <ClCompile Include="RestartPoint.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="Board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -122,9 +119,6 @@
     </ClCompile>
     <ClCompile Include="Rope.cpp">
       <Filter>GameObjects\MapObject</Filter>
-    </ClCompile>
-    <ClCompile Include="PointReset.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bob.cpp">
       <Filter>GameObjects\Enemy</Filter>
@@ -167,6 +161,24 @@
     </ClCompile>
     <ClCompile Include="Flame.cpp">
       <Filter>GameObjects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="RestartPoint.cpp">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PointReset.cpp">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="NextLevelPoint.cpp">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneDealth.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLevelCompleted.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneIntro.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,9 +245,6 @@
     <ClInclude Include="Genie.h">
       <Filter>GameObjects\Item</Filter>
     </ClInclude>
-    <ClInclude Include="RestartPoint.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -253,9 +262,6 @@
     </ClInclude>
     <ClInclude Include="Rope.h">
       <Filter>GameObjects\MapObject</Filter>
-    </ClInclude>
-    <ClInclude Include="PointReset.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bob.h">
       <Filter>GameObjects\Enemy</Filter>
@@ -281,9 +287,6 @@
     <ClInclude Include="ForegroundObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DSutil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -298,6 +301,27 @@
     </ClInclude>
     <ClInclude Include="Flame.h">
       <Filter>GameObjects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RestartPoint.h">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="PointReset.h">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="NextLevelPoint.h">
+      <Filter>GameObjects\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneDealth.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneLevelCompleted.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneIntro.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -91,7 +91,8 @@ enum oType
 	SKELETON = 17,
 	JAFAR = 18,
 	FLAME = 19,
-	MAGIC = 20
+	MAGIC = 20,
+	NEXTLEVELPOINT = 21
 };
 
 struct Point 

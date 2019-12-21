@@ -9,6 +9,7 @@
 #include "Board.h"
 #include "PointReset.h"
 #include "Foreground.h"
+#include "Jafar.h"
 class SceneGame:public Scene
 {
 private: 
@@ -22,7 +23,6 @@ private:
 	PointReset * pointReset;
 
 	DWORD EndTime;
-	float remainTime;
 	int count;
 
 	int dyc;// biến dùng tạo hiệu ứng chuyển động cho cam

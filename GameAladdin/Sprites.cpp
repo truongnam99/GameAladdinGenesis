@@ -52,7 +52,7 @@ void Sprite::Draw(float x, float y, int alpha, int flip, int dif)
 			//x += balanceX;
 		}
 		D3DXVECTOR3 position(x, (y + balance), 0.0f);
-		Game::GetInstance()->GetSpriteHandler()->Draw(texture, &rect, NULL, &position, D3DCOLOR_XRGB(255, 255, 255));
+		Game::GetInstance()->GetSpriteHandler()->Draw(texture, &rect, NULL, &position, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	}
 	else
 	{
@@ -64,7 +64,7 @@ void Sprite::Draw(float x, float y, int alpha, int flip, int dif)
 		else
 			x -= (right- left - dif);
 		D3DXVECTOR3 position(x, (y + balance), 0.0f);
-		Game::GetInstance()->GetSpriteHandler()->Draw(texture, &rect, NULL, &position, D3DCOLOR_XRGB(255, 255, 255));
+		Game::GetInstance()->GetSpriteHandler()->Draw(texture, &rect, NULL, &position, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	}
 
 	

@@ -2,8 +2,8 @@
 #define _ALADDIN_
 #include "GameObject.h"
 
-#define ALADDIN_WARK_SPEED 0.12f//0.12f
-#define ALADDIN_GRAVITY 0.0016f
+#define ALADDIN_WARK_SPEED 0.16f//0.12f
+#define ALADDIN_GRAVITY 0.0013f
 #define ALADIN_JUMP_SPEED 0.53f
 #define ALADIN_STOP_SPEED 0.03f
 #define ALADDIN_CLIMB_SPEED 0.11f
@@ -94,6 +94,7 @@ public:
 	bool isCollsionWithRestartPoint;
 	bool isAttacking, isJumping, isClimbing, isIdle, isRunning, isInjured, isSitting; 
 	bool isCollisionWithWall;
+	bool isCollisionWithNextLevelPoint;
 	Aladdin();
 	~Aladdin();
 	DWORD GetTime() { return stime; }

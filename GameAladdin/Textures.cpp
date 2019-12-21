@@ -4,7 +4,7 @@ Textures * Textures::instance = NULL;
 
 Textures::Textures()
 {
-	//LoadResources();
+	LoadResources();
 }
 
 Textures * Textures::GetInstance()

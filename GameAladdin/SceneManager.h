@@ -9,8 +9,8 @@ class SceneManager
 private:
 	static SceneManager * instance;
 	Scene * scene;
-
 public:
+	Scene * sceneGame;
 	SceneManager();
 	~SceneManager();
 
