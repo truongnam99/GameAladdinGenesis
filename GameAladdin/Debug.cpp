@@ -22,6 +22,4 @@ void DebugOut(wchar_t *fmt, ...)
 	/*std::wstring string(dbg_out);
 	std::string str(string.begin(), string.end());
 	out << str;*/
-
-
 }

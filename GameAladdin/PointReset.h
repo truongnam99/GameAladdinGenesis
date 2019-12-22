@@ -14,6 +14,3 @@ public:
 	~PointReset();
 };
 #endif // !__PointReset__
-
-
-

@@ -1,5 +1,5 @@
 #include "Board.h"
-
+#include "Sound.h"
 Board * Board::instance = NULL;
 
 Board::Board()
@@ -193,6 +193,8 @@ void Board::Update(DWORD dt, int health, int heart, int score, int redjewel, int
 	if (this->score < score)
 	{
 		this->score += (score - this->score+SCORE_RENDER_SPEED_LEVEL) / SCORE_RENDER_SPEED_LEVEL;
+
+		Sound::GetInstance()->Play(eSound::sound_BonesTinkle);
 	}
 	if (this->score > score)
 		this->score = score;

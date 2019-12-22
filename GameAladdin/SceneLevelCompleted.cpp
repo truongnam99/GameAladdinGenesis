@@ -1,7 +1,7 @@
 #include "SceneLevelCompleted.h"
 #include "Textures.h"
 #include "Animations.h"
-
+#include "Sound.h"
 void SceneLevelCompleted::KeyState(BYTE * state)
 {
 }
@@ -41,6 +41,7 @@ void SceneLevelCompleted::LoadResources()
 	ani->Add(80109);
 	ani->Add(80110);
 	Animations::GetInstance()->Add(80102, ani);
+	Sound::GetInstance()->Play(eSound::sound_LevelComplete);
 }
 
 void SceneLevelCompleted::Update(DWORD dt)

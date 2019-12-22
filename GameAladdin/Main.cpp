@@ -9,6 +9,7 @@
 #include "SceneLevelCompleted.h"
 #include "SceneDealth.h"
 #include "SceneIntro.h"
+#include "SceneWin.h"
 
 Game *game;
 SceneManager * sceneManager;

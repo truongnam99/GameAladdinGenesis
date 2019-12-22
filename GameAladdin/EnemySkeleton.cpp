@@ -1,4 +1,5 @@
 #include "EnemySkeleton.h"
+#include "Sound.h"
 
 bool EnemySkeleton::isLoadedSprite = false;
 
@@ -126,6 +127,7 @@ void EnemySkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			skeletons.push_back(ske);
 		}
 		dTime = 0;
+		Sound::GetInstance()->Play(eSound::sound_Skeleton);
 	}
 }
 

@@ -74,5 +74,5 @@ void Arrow::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Arrow::Render(int flip)
 {
 	animations[STATE1]->RenderReverse(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
-	RenderBoundingBox();
+
 }

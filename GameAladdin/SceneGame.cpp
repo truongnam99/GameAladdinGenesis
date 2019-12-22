@@ -4,6 +4,7 @@
 #include "Sound.h"
 #include "SceneDealth.h"
 #include "SceneLevelCompleted.h"
+#include "SceneWin.h"
 void SceneGame::KeyState(BYTE * state)
 {
 	float vx;
@@ -200,6 +201,8 @@ void SceneGame::LoadResources()
 	sprites->Add(51060, 1068, 210, 1146, 418, texture);
 	texture = Textures::GetInstance()->Get(ID_TEX_RESOURCE_MAP1A);
 	sprites->Add(51064, 220, 316, 739, 572, texture);
+	texture = Textures::GetInstance()->Get(ID_TEX_BOSSBACKGROUND);
+	sprites->Add(51065, 0, 0, 830, 450, texture);
 
 	foreground = new Foreground();
 	foreground->list_foregroundObject.push_back(new ForegroundObject(51056, 176, 768));
@@ -209,7 +212,8 @@ void SceneGame::LoadResources()
 	foreground->list_foregroundObject.push_back(new ForegroundObject(51060, 2192, 65));
 	//SetLevel(2);
 	foregroundx = new ForegroundObject(51064, 0, 0, 519, 256);
-	// Sound::GetInstance()->Play(eSound::sound_Story);
+	foregroundxboss = new ForegroundObject(51065, 0, 0, 830, 450);
+	Sound::GetInstance()->Play(eSound::sound_Story);
 }
 
 void SceneGame::Update(DWORD dt)
@@ -249,7 +253,7 @@ void SceneGame::Update(DWORD dt)
 				if (e->GetHealth() <= 0)
 				{
 					SetLevel(1);
-					SceneManager::GetInstance()->SetScene(new SceneLevelCompleted());
+					SceneManager::GetInstance()->SetScene(new SceneWin());
 					return;
 				}
 				float ex, ey;
@@ -469,6 +473,7 @@ void SceneGame::Render()
 		Board::GetInstance()->Render();
 		break;
 	case 2:
+		//Sprites::GetInstance()->Get(51065)->Draw(0,0);
 		map->DrawMap();
 		for (int i = 0; i < obj.size(); i++)
 		{
@@ -498,6 +503,14 @@ void SceneGame::SetLevel(int level)
 		aladdin->SetPosition(100, 1000);
 		map->SetMap(MAP1);
 		map->LoadMap();
+		aladdin->SetGravity(ALADDIN_GRAVITY);
+		camera->SetMap(map->GetMapWidth(), map->GetMapHeight());
+		camera->SetPosition(0.0f, 0.0f);
+		if (pointReset != nullptr)
+			delete pointReset;
+		Sound::GetInstance()->StopAll();
+		Sound::GetInstance()->Play(eSound::sound_Story);
+		
 		break;
 	case 2:
 		this->level = 2;
@@ -537,6 +550,8 @@ void SceneGame::SetLevel(int level)
 		obj.push_back(o);
 		o = new Jafar();
 		obj.push_back(o);
+		Sound::GetInstance()->StopAll();
+		Sound::GetInstance()->Play(eSound::sound_BossTune);
 		break;
 	default:
 		break;

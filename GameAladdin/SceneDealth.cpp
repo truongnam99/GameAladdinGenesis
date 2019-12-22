@@ -2,7 +2,7 @@
 
 #include "Textures.h"
 #include "Animations.h"
-
+#include "Characters.h"
 
 void SceneDealth::KeyState(BYTE * state)
 {
@@ -10,6 +10,8 @@ void SceneDealth::KeyState(BYTE * state)
 
 void SceneDealth::OnKeyDown(int KeyCode)
 {
+	if (KeyCode == DIK_C)
+		SceneManager::GetInstance()->SetScene(SceneManager::GetInstance()->sceneGame);
 }
 
 void SceneDealth::OnKeyUp(int KeyCode)
@@ -18,6 +20,7 @@ void SceneDealth::OnKeyUp(int KeyCode)
 
 void SceneDealth::LoadResources()
 {
+	Characters::GetInstance();
 	Sprites * sprites = Sprites::GetInstance();
 	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(ID_TEX_ALADDIN);
 	if (Animations::GetInstance()->Get(80112) != nullptr)
@@ -65,14 +68,27 @@ void SceneDealth::LoadResources()
 
 void SceneDealth::Update(DWORD dt)
 {
-	dTime += dt;
-	if (dTime > 3000)
-		SceneManager::GetInstance()->SetScene(SceneManager::GetInstance()->sceneGame);
+	
 }
 
 void SceneDealth::Render()
 {
 	Animations::GetInstance()->Get(80112)->Render(120, 80);
+	Sprites::GetInstance()->Get(CHAR_P)->Draw(60, 150);
+	Sprites::GetInstance()->Get(CHAR_R)->Draw(72, 150);
+	Sprites::GetInstance()->Get(CHAR_E)->Draw(84, 150);
+	Sprites::GetInstance()->Get(CHAR_S)->Draw(96, 150);
+	Sprites::GetInstance()->Get(CHAR_S)->Draw(108, 150);
+	Sprites::GetInstance()->Get(CHAR_C)->Draw(132, 150);
+	Sprites::GetInstance()->Get(CHAR_T)->Draw(156, 150);
+	Sprites::GetInstance()->Get(CHAR_O)->Draw(168, 150);
+	Sprites::GetInstance()->Get(CHAR_N)->Draw(192, 150);
+	Sprites::GetInstance()->Get(CHAR_E)->Draw(204, 150);
+	Sprites::GetInstance()->Get(CHAR_W)->Draw(216, 150);
+	Sprites::GetInstance()->Get(CHAR_G)->Draw(240, 150);
+	Sprites::GetInstance()->Get(CHAR_A)->Draw(252, 150);
+	Sprites::GetInstance()->Get(CHAR_M)->Draw(264, 150);
+	Sprites::GetInstance()->Get(CHAR_E)->Draw(278, 150);
 }
 
 SceneDealth::SceneDealth()

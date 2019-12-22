@@ -11,7 +11,7 @@ class Textures
 private:
 
 	static Textures * instance;
-	unordered_map<int, LPDIRECT3DTEXTURE9> textures;
+	unordered_map<int, LPDIRECT3DTEXTURE9> textures;	
 
 	Textures();
 public:

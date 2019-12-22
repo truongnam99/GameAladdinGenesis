@@ -59,6 +59,5 @@ public:
 	void StopAll();
 
 };
-
 #endif
 

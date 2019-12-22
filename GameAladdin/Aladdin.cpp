@@ -777,7 +777,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	int countFrame = animations[currentState]->GetCountFrame(); // Đếm số frame
 	int currentFrame = animations[currentState]->GetCurrentFrame();
 
-	if (isInjured == true && stime > 1000)
+	if (isInjured == true && stime > 300)
 	{
 		isInjured = false;
 	}
@@ -841,9 +841,6 @@ void Aladdin::Render(int flip)
 		}
 	}
 	animations[currentState]->Render(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam(), 255, nx);
-
-
-	RenderBoundingBox();
 }
 
 void Aladdin::SetCurrentState(int state)
@@ -997,9 +994,9 @@ void Aladdin::SetCurrentState(int state)
 			if (applesCount <= 0)
 				break;
 			if (nx == 1)
-				a = new AppleOfAladdin(x + 37, y, nx);
+				a = new AppleOfAladdin(x + 37, y + 20, nx);
 			else
-				a = new AppleOfAladdin(x, y, nx);
+				a = new AppleOfAladdin(x, y + 20, nx);
 			apples.push_back(a);
 			applesCount--;
 			Sound::GetInstance()->Play(eSound::sound_ThrowApple);

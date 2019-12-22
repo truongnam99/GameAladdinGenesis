@@ -91,7 +91,6 @@ void AppleOfAladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void AppleOfAladdin::Render(int flip)
 {
 	animations[currentState]->Render(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam(), 255);
-	RenderBoundingBox();
 }
 
 void AppleOfAladdin::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObject)

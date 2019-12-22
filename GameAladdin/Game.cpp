@@ -294,7 +294,6 @@ void Game::SweptAABB(
 		nx = 0.0f;
 		dy > 0 ? ny = -1.0f : ny = 1.0f;//dy: quang duong can di de bat dau xay ra va cham>0->ny=-1;(di len)
 	}
-
 }
 HWND Game::GetWindowHandle()
 {

@@ -31,6 +31,7 @@ private:
 	vector<LPGAMEOBJECT> *mapObj;
 	Foreground * foreground;
 	ForegroundObject * foregroundx;
+	ForegroundObject * foregroundxboss;
 	int level;
 public:
 	bool isGameOver;

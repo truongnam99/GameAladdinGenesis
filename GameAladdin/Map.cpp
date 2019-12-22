@@ -13,6 +13,7 @@ void Map::LoadMap()
 	case MAP1:
 		this->idMap = idMap;
 		ReadMapTXT((char*)"Resources/map/map1.txt");
+		this->tileSize = 8;
 		sprite->SetTexture(Textures::GetInstance()->Get(MAP1));
 		break;
 	case MAP2:

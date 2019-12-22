@@ -159,5 +159,5 @@ void Bob::Render(int flip)
 		animations[STATE1]->RenderReverse(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
 	else
 		animations[STATE1]->CustomRender(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
-	RenderBoundingBox();
+
 }

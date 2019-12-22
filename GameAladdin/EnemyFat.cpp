@@ -1,4 +1,5 @@
 ﻿#include "EnemyFat.h"
+#include "Sound.h"
 
 bool EnemyFat::isLoadedSprite = false;
 
@@ -239,6 +240,7 @@ void EnemyFat::SetCurrentState(int state)
 	case ENEMY_ATTACKING:
 		currentState = ENEMY_ATTACKING;
 		animations[currentState]->SetCurrentFrame(0);
+		Sound::GetInstance()->Play(eSound::sound_GuardHit);
 		break;
 	case ENEMY_DEATH:
 		if (state == ENEMY_DEATH && currentState == ENEMY_DEATH)
@@ -250,6 +252,7 @@ void EnemyFat::SetCurrentState(int state)
 	case ENEMY_DEFIANT:
 		if (currentState == ENEMY_ATTACKING && animations[currentState]->GetCountFrame() - 2 > animations[currentState]->GetCurrentFrame())
 			break;
+		Sound::GetInstance()->Play(eSound::sound_GuardBeckon);
 		currentState = ENEMY_DEFIANT;
 		animations[currentState]->SetCurrentFrame(0);
 		break;

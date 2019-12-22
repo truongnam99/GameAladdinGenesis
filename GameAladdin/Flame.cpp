@@ -20,7 +20,7 @@ void Flame::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Flame::Render(int flip)
 {
 	animations[currentState]->Render(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
-	RenderBoundingBox();
+
 }
 
 void Flame::SetCurrentState(int currentState)
@@ -32,14 +32,14 @@ Flame::Flame(float x, float y, int width, int height, float nx)
 {
 	Animation * ani;
 	ani = new Animation(90, 0);
-	ani->Add(41991);
-	ani->Add(41992);
-	ani->Add(41993);
-	ani->Add(41994);
-	ani->Add(41995);
-	ani->Add(41996);
-	ani->Add(41997);
-	ani->Add(41998);
+	ani->Add(141991);
+	ani->Add(141992);
+	ani->Add(141993);
+	ani->Add(141994);
+	ani->Add(141995);
+	ani->Add(141996);
+	ani->Add(141997);
+	ani->Add(141998);
 	this->animations[FLAME_1] = ani;
 	this->vx = 0.25;
 	this->x = x;

@@ -167,6 +167,7 @@
     <ClCompile Include="SceneIntro.cpp" />
     <ClCompile Include="SceneLevelCompleted.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneWin.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprites.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="SceneIntro.h" />
     <ClInclude Include="SceneLevelCompleted.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneWin.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprites.h" />

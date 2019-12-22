@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "Animations.h"
 #include "Textures.h"
+#include "Sound.h"
 
 void SceneIntro::KeyState(BYTE * state)
 {
@@ -22,16 +23,20 @@ void SceneIntro::LoadResources()
 	if (Sprites::GetInstance()->Get(80202) != nullptr)
 		return;
 	sprites->Add(80202, 9, 12, 252, 102, texture);
+	Sound::GetInstance()->StopAll();
+	Sound::GetInstance()->Play(eSound::sound_Story);
+
 }
 
 void SceneIntro::Update(DWORD dt)
 {
 	dTime += dt;
-	if (dTime> 5000)
+	if (a < 10)
 		SceneManager::GetInstance()->SetScene(SceneManager::GetInstance()->sceneGame);
-	a += 1;
-	if (a > 255)
-		a = 255;
+
+	if (a >= 255)
+		flag = -1;
+	a += 1*flag;
 }
 
 void SceneIntro::Render()
@@ -43,8 +48,8 @@ SceneIntro::SceneIntro()
 {
 	dTime = 0;
 	LoadResources();
-	a = 0;
-	flag = 0;
+	a = 10;
+	flag = 1;
 }
 
 

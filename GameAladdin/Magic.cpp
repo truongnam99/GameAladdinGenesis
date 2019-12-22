@@ -39,7 +39,7 @@ void Magic::Render(int flip)
 	if (isDeath)
 		return;
 	animations[currentState]->Render(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
-	RenderBoundingBox();
+
 }
 
 void Magic::SetCurrentState(int currentState)
@@ -51,15 +51,15 @@ Magic::Magic(float x, float y, int width, int height)
 {
 	Animation * ani;
 	ani = new Animation(90, 0);
-	ani->Add(41983);
-	ani->Add(41984);
-	ani->Add(41985);
+	ani->Add(141983);
+	ani->Add(141984);
+	ani->Add(141985);
 	this->animations[DRAG_NON_COLLISION] = ani;
 
 	ani = new Animation(90);
-	ani->Add(41987);
-	ani->Add(41988);
-	ani->Add(41989);
+	ani->Add(141987);
+	ani->Add(141988);
+	ani->Add(141989);
 	this->animations[DRAG_COLLISION] = ani;
 
 	this->x = x;
