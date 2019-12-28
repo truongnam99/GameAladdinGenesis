@@ -27,6 +27,19 @@ void PointReset::ResetState(vector<LPGAMEOBJECT> &coObjects, Aladdin * aladdin)
 	for (int i = 0; i < coObjects.size(); i++)
 	{
 		coObjects[i]->SetCurrentState(stateOfObject[coObjects[i]->GetId()]);
+		switch (coObjects[i]->GetType())
+		{
+		case oType::ENEMYBAT:
+			coObjects[i]->SetHealth(1);			
+			break;
+		case oType::ENEMYSKELETON:
+			coObjects[i]->SetHealth(1);
+			break;
+		case oType::ENEMYFAT:
+		case oType::ENEMYTHIN:
+			coObjects[i]->SetHealth(2);
+			break;
+		}
 	}
 	aladdin->SetApplesCount(this->aladdin->GetApplesCount());
 	aladdin->SetHealth(this->aladdin->GetHealth());

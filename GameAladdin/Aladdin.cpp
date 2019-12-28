@@ -773,7 +773,6 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	CollisionWithRope(coObjects);
 	x += dxt;
-	//DebugOut((wchar_t*)L"%f\n", vy);
 	int countFrame = animations[currentState]->GetCountFrame(); // Đếm số frame
 	int currentFrame = animations[currentState]->GetCurrentFrame();
 
@@ -783,7 +782,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	CollisionWithItem(coObjects);
 	CollisionWithEnemy(coObjects);
-	if (isAttacking && currentFrame == countFrame - 1)
+	if (isAttacking && currentFrame >= countFrame - 1)
 	{
 		isAttacking = false;
 		animations[ALADDIN_STAYING_ATTACKING]->SetCurrentFrame(0);
@@ -804,8 +803,7 @@ void Aladdin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		animations[ALADDIN_RUNNING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 		animations[ALADDIN_JUMPING_ATTACKING_BY_APPLE]->SetCurrentFrame(0);
 	}
-	if (isAttacking)
-		DebugOut((wchar_t*)L"Dang tan cong");
+
 }
 
 void Aladdin::Render(int flip)
@@ -859,8 +857,6 @@ void Aladdin::SetCurrentState(int state)
 				break;
 			if (isAttacking || isJumping || isClimbing || isInjured)
 				break;
-			DebugOut((wchar_t*)L"CRRSTATE=%d", currentState);
-			DebugOut((wchar_t*)L"frame=%d", animations[ALADDIN_RUNNING2]->GetCurrentFrame());
 			if (currentState == ALADDIN_RUNNING2 && animations[currentState]->GetCountFrame() - 2 > animations[currentState]->GetCurrentFrame())
 			{
 				DebugOut((wchar_t*)L"frame=%d", animations[currentState]->GetCurrentFrame());

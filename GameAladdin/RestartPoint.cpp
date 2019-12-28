@@ -91,5 +91,4 @@ void RestartPoint::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void RestartPoint::Render(int flip)
 {
 	animations[currentState]->Render(x - Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam());
-	RenderBoundingBox();
 }

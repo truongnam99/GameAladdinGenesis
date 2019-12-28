@@ -255,6 +255,11 @@ void Grid::ResetState()
 		for (int j = 0; j < cell->object.size(); j++)
 		{
 			cell->object[j]->SetCurrentState(1);
+			if (cell->object[j]->GetType() == oType::ENEMYTHIN
+				|| cell->object[j]->GetType() == oType::ENEMYFAT)
+				cell->object[j]->SetHealth(2);
+			if (cell->object[j]->GetType() == oType::ENEMYBAT)
+				cell->object[j]->SetHealth(1);
 		}
 	}
 }

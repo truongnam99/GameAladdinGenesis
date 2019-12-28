@@ -165,8 +165,8 @@ void EnemyBat::Render(int flip)
 
 void EnemyBat::SetCurrentState(int state)
 {
-	if (currentState == BAT_DEATH)
-		return;
+	currentState = state;
 	if (state == BAT_DEATH)
 		currentState = BAT_DEATH;
+	
 }

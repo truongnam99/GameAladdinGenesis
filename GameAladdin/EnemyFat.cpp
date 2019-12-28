@@ -219,7 +219,6 @@ void EnemyFat::Render(int flip)
 	if (this->health <= 0)
 		return;
 	animations[currentState]->Render(x-Camera::GetInstance()->GetXCam(), y - Camera::GetInstance()->GetYCam(), 255, nx, 47);
-	//DebugOut((wchar_t*)L"cur state %d, total = %d, frame = %d, health = %d\n", currentState, animations[currentState]->GetCountFrame(), animations[currentState]->GetCurrentFrame(), health);
 }
 
 void EnemyFat::SetCurrentState(int state)
@@ -252,7 +251,7 @@ void EnemyFat::SetCurrentState(int state)
 	case ENEMY_DEFIANT:
 		if (currentState == ENEMY_ATTACKING && animations[currentState]->GetCountFrame() - 2 > animations[currentState]->GetCurrentFrame())
 			break;
-		Sound::GetInstance()->Play(eSound::sound_GuardBeckon);
+		//Sound::GetInstance()->Play(eSound::sound_GuardBeckon);
 		currentState = ENEMY_DEFIANT;
 		animations[currentState]->SetCurrentFrame(0);
 		break;

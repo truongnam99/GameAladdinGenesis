@@ -134,9 +134,11 @@ void SceneGame::KeyState(BYTE * state)
 
 void SceneGame::OnKeyDown(int KeyCode)
 {
+	DebugOut((wchar_t*)L"nhan key %d\n", KeyCode);
 	switch (KeyCode)
 	{
-	case DIK_X:
+	case DIK_V:
+		DebugOut((wchar_t*)L"nhan key X");
 		aladdin->isAttacking = true;
 		if (aladdin->isJumping)
 			aladdin->SetCurrentState(ALADDIN_JUMPING_ATTACKING);
@@ -150,7 +152,7 @@ void SceneGame::OnKeyDown(int KeyCode)
 			aladdin->SetCurrentState(ALADDIN_STAYING_COMBO_ATTACKING);
 		else aladdin->SetCurrentState(ALADDIN_STAYING_ATTACKING);
 		break;
-	case DIK_Z:
+	case DIK_B:
 		aladdin->isAttacking = true;
 		if (aladdin->isJumping)
 			aladdin->SetCurrentState(ALADDIN_JUMPING_ATTACKING_BY_APPLE);
@@ -210,7 +212,7 @@ void SceneGame::LoadResources()
 	foreground->list_foregroundObject.push_back(new ForegroundObject(51058, 817, 377));
 	foreground->list_foregroundObject.push_back(new ForegroundObject(51059, 1168, 920));
 	foreground->list_foregroundObject.push_back(new ForegroundObject(51060, 2192, 65));
-	//SetLevel(2);
+	// SetLevel(2);
 	foregroundx = new ForegroundObject(51064, 0, 0, 519, 256);
 	foregroundxboss = new ForegroundObject(51065, 0, 0, 830, 450);
 	Sound::GetInstance()->Play(eSound::sound_Story);
@@ -227,7 +229,7 @@ void SceneGame::Update(DWORD dt)
 		if (aladdin->GetHealth() < 0)
 		{
 			aladdin->SetHeart(aladdin->GetHeart()-1);
-			if (aladdin->GetHeart() < 0)
+			if (aladdin->GetHeart() <= 0)
 			{
 				SetLevel(1);
 				SceneManager::GetInstance()->SetScene(new SceneDealth());
@@ -390,15 +392,22 @@ void SceneGame::Update(DWORD dt)
 				aladdin = new Aladdin();
 				aladdin->LoadResource();
 				grid->ResetState();
+				if (pointReset != NULL)
+				{
+					delete pointReset;
+					pointReset = NULL;
+				}
+
 				SceneManager::GetInstance()->SetScene(new SceneDealth());
 				return;
 			}
 			else if (pointReset == NULL)
 			{
-				Aladdin * a = aladdin;
+				/*Aladdin * a = aladdin;
 				delete a;
-				aladdin = new Aladdin();
+				aladdin = new Aladdin();*/
 				aladdin->LoadResource();
+				aladdin->SetPosition(100, 1000);
 				grid->ResetState();
 				aladdin->SetHealth(9);
 
@@ -506,11 +515,12 @@ void SceneGame::SetLevel(int level)
 		aladdin->SetGravity(ALADDIN_GRAVITY);
 		camera->SetMap(map->GetMapWidth(), map->GetMapHeight());
 		camera->SetPosition(0.0f, 0.0f);
-		if (pointReset != nullptr)
+		if (pointReset != nullptr || pointReset != NULL)
 			delete pointReset;
+		pointReset = NULL;
 		Sound::GetInstance()->StopAll();
 		Sound::GetInstance()->Play(eSound::sound_Story);
-		
+		grid->ResetState();
 		break;
 	case 2:
 		this->level = 2;

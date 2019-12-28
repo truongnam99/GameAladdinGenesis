@@ -75,10 +75,13 @@ void EnemySkeleton::Render(int flip)
 void EnemySkeleton::SetCurrentState(int currentState)
 {
 	this->currentState = currentState;
+	if (this->currentState == 1)
+		health = 1;
 }
 
 void EnemySkeleton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
 	if (isDeath)
 	{
 		for (int i = 0; i < skeletons.size(); i++)
